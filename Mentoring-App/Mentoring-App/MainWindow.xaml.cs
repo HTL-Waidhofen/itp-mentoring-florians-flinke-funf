@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mentoring_App.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace Mentoring_App
         public MainWindow()
         {
             InitializeComponent();
+            application.Content = new Login();
+        }
+
+        private void Window_SourceInitialized(object sender, EventArgs e)
+        {
+
         }
     }
 }
