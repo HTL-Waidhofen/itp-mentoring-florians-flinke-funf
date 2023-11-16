@@ -6,32 +6,50 @@
       xmlns:local="clr-namespace:Mentoring_App.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="675" d:DesignWidth="1200"
-      Title="mentorreg" Background="White">
-
+      Title="mentorreg" Background="White" >
+    <Page.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="FontFamily" Value="Calibri Light"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="20"/>
+        </Style>
+    </Page.Resources>
+    
     <StackPanel>
         <StackPanel>
-            <Button Width="50" HorizontalAlignment="Left">- zurück</Button>
-            <Label HorizontalAlignment="Center" FontSize="15">Als Mentor registrieren</Label>
+            <Button HorizontalAlignment="Left" Background="White" BorderBrush="White" Margin="0" FontSize="15" HorizontalContentAlignment="Left" Padding="5">zurück</Button>
+            <Label HorizontalAlignment="Center" FontSize="60">Als Mentor registrieren</Label>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label>Jahrgang auswählen:</Label>
-            <ComboBox>
-                <ComboBoxItem IsSelected="True">1.Jahrgang</ComboBoxItem>
-                <ComboBoxItem>2.Jahrgang</ComboBoxItem>
-                <ComboBoxItem>3.Jahrgang</ComboBoxItem>
-                <ComboBoxItem>4.Jahrgang</ComboBoxItem>
-                <ComboBoxItem>5.Jahrgang</ComboBoxItem>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Label FontFamily="CalibriLight" FontSize="20">Jahrgang auswählen:</Label>
+            <ComboBox FontFamily="CalibriLight" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150">
+                <ComboBoxItem IsSelected="True">1. Jahrgang</ComboBoxItem>
+                <ComboBoxItem>2. Jahrgang</ComboBoxItem>
+                <ComboBoxItem>3. Jahrgang</ComboBoxItem>
+                <ComboBoxItem>4. Jahrgang</ComboBoxItem>
+                <ComboBoxItem>5. Jahrgang</ComboBoxItem>
             </ComboBox>
         </StackPanel>
-        <StackPanel>
+        <StackPanel Margin="10">
             <GroupBox Header="Haupt-/Nebenfächer">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" >
+                    <StackPanel Orientation="Vertical" Margin="10,10,10,10">
                         <CheckBox>Deutsch</CheckBox>
-                        <CheckBox>Mathematik</CheckBox>
+                        <CheckBox >Mathematik</CheckBox>
                         <CheckBox>Englisch</CheckBox>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" Margin="10,10,10,10">
                         <CheckBox>GGP</CheckBox>
                         <CheckBox>Naturwissenschaften</CheckBox>
                         <CheckBox>Wirtschaft/Recht</CheckBox>
@@ -39,25 +57,25 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="IT-Fächer">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Orientation="Vertical">
+                <DockPanel HorizontalAlignment="Left">
+                    <StackPanel Orientation="Vertical" Margin="10,10,10,10">
                         <CheckBox>Netzwerktechnik</CheckBox>
                         <CheckBox>Softwareentwicklung</CheckBox>
                         <CheckBox>Medientechnik</CheckBox>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" Margin="10,10,10,10">
                         <CheckBox>Computerpraktikum</CheckBox>
                         <CheckBox>IT-Sicherheit</CheckBox>
-                        <CheckBox>Informatinstechnische Projekte</CheckBox>
+                        <CheckBox>Informationstechnische Projekte</CheckBox>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" Margin="10,10,10,10">
                         <CheckBox>Informationssysteme</CheckBox>
                         <CheckBox>Systemtechnik-E</CheckBox>
                         <CheckBox>Systemtechnik</CheckBox>
                     </StackPanel>
-                </StackPanel>
+                </DockPanel>
             </GroupBox>
         </StackPanel>
-        <Button Width="100">Registrieren</Button>
+        <Button>Registrieren</Button>
     </StackPanel>
 </Page>
