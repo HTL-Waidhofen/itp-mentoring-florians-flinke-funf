@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MentoringClasses
+namespace Mentoring_App
 {
     public class Mentor
     {
@@ -17,5 +17,14 @@ namespace MentoringClasses
 
         public List<Appointment> appointments = new List<Appointment>();
 
+        public Mentor(string name, string email, string password, string subjects, string isapproved, string grade) 
+        {
+            this.Name = name;
+            this.Email = email;
+            this.Password = password;
+            this.Subjects = subjects;
+            this.IsApproved = bool.Parse(isapproved);
+            this.Grade = int.Parse(grade);
+        }
     }
 }

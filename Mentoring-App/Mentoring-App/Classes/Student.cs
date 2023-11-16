@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MentoringClasses
+namespace Mentoring_App
 {
     public class Student
     {
@@ -20,7 +20,5 @@ namespace MentoringClasses
             this.Email = email;
             this.Password = password;
         }
-
-
     }
 }
