@@ -82,6 +82,38 @@ namespace Mentoring_App
             }
         }
 
+        public static void AddStudentToDB(Student student)
+        {
+            //using (var con = new SQLiteConnection(loadConnectionString()))
+            //{
+            //    con.Open();
+
+            //    using (var cmd = new SQLiteCommand(con))
+            //    {
+            //        cmd.CommandText = "INSERT INTO Mitarbeiter(name, gehalt) VALUES(@name,@gehalt)";
+            //        cmd.Parameters.AddWithValue("@name", person.name);
+            //        cmd.Parameters.AddWithValue("@gehalt", person.gehalt);
+            //        cmd.Prepare();
+            //        cmd.ExecuteNonQuery();
+
+            //    }
+            //}
+
+            using (var con = new SqliteConnection(loadConnectionString()))
+            {
+                con.Open();
+
+                using (var cmd = new SqliteCommand(con))
+                {
+                    cmd.CommandText = "INSERT INTO students(name, email, password) VALUES(@name,@email, @password)";
+                    cmd.Parameters.AddWithValue("@name", student.Name);
+                    cmd.Parameters.AddWithValue("@gehalt", student.Email);
+                    cmd.Parameters.AddWithValue("@gehalt", student.Password);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         //List<Student> students1 = LoadStudentsFromDB();
 
         //public void Test(List<Student> students)
