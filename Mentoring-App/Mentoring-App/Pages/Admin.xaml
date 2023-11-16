@@ -6,9 +6,10 @@
       xmlns:local="clr-namespace:Mentoring_App.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Admin">
-
-    <Grid>
-        
-    </Grid>
+      Title="Admin" Background="White" Height="675" Width="1200">
+    <DockPanel>
+        <StackPanel>
+            <TextBlock>Meine Fächer</TextBlock>
+        </StackPanel>
+    </DockPanel>
 </Page>
