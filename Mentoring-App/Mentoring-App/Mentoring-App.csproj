@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DB\" />
     <Folder Include="Pages\" />
   </ItemGroup>
 
