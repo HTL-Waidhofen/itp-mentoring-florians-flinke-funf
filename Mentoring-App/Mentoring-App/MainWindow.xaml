@@ -6,7 +6,5 @@
         xmlns:local="clr-namespace:Mentoring_App"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
-    <Grid>
-
-    </Grid>
+    <Frame x:Name="application"></Frame>
 </Window>
