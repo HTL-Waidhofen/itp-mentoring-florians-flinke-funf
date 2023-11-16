@@ -7,6 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="675" d:DesignWidth="1200" Background="White"
       Title="Students">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Page.Resources>
     <StackPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -17,8 +23,8 @@
             </MenuItem>
         </Menu>
         <StackPanel Orientation="Horizontal" Height="675">
-            <StackPanel Orientation="Vertical" Width="600">
-                <TextBlock Margin="15,10,0,0">nach Fach suchen:</TextBlock>
+            <StackPanel Orientation="Vertical" Width="560">
+                <TextBlock Margin="20,10,0,0">nach Fach suchen:</TextBlock>
                 <TextBox x:Name="subjectSearch" Margin="20,0,20,0"/>
 
                 <ListBox x:Name="subjects" Margin="20,30,20,0" Height="120">
@@ -29,7 +35,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Label Margin="20,80,0,0">Termine</Label>
+                <TextBlock Margin="20,80,0,0">Termine</TextBlock>
                 <ListBox x:Name="appointments" Margin="20,10,20,0" Height="200">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -39,6 +45,18 @@
                 </ListBox>
 
                 <Button Height="30" Margin="100,40,100,0">Termin buchen</Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Width="400" Margin="100,0,0,0">
+                <TextBlock Margin="20,10,0,0">Meine Termine</TextBlock>
+                <ListBox x:Name="myAppointments" Margin="20,10,20,0" Height="400">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Height="30" Margin="20,20,20,0">Termin entfernen</Button>
             </StackPanel>
         </StackPanel>
     </StackPanel>
