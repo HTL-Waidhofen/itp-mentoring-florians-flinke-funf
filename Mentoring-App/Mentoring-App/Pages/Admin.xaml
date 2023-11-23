@@ -8,8 +8,27 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Admin" Background="White" Height="675" Width="1200">
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Menü">
+                <MenuItem Header="_Admin" />
+                <MenuItem Header="_Information" />
+                <Separator />
+                <MenuItem Header="_Beenden" />
+            </MenuItem>
+        </Menu>
         <StackPanel>
-            <TextBlock>Meine Fächer</TextBlock>
+            <TextBlock>Angefragt</TextBlock>
+            <ListBox></ListBox>
+            <ListBox></ListBox>
+            <DockPanel>
+                <Button>Annehmen</Button>
+                <Button>Ablehnen</Button>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock>Mentoren</TextBlock>
+            <ListBox></ListBox>
+            <Button></Button>
         </StackPanel>
     </DockPanel>
 </Page>
