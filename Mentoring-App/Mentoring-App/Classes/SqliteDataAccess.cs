@@ -7,7 +7,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Windows;
-using ÜbungCrud;
 
 namespace DBConnection
 {
