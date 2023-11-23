@@ -7,7 +7,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="675" d:DesignWidth="1200" Background="White"
       Title="Mentor">
-
     <Page.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Calibri"/>
@@ -23,7 +22,7 @@
                 <MenuItem Header="Beenden" />
             </MenuItem>
         </Menu>
-        <StackPanel Orientation="Horizontal" Height="675">
+        <StackPanel x:Name="Site" Orientation="Horizontal" Height="675" Loaded="LoadComboboxes">
              <StackPanel Orientation="Vertical" Width="560">
                 <TextBlock Margin="20,10,0,0">Meine Fächer</TextBlock>
 
@@ -43,18 +42,28 @@
                     </StackPanel>
                 </StackPanel>
 
-                <TextBlock Margin="20,50,0,0">Termine erstellen</TextBlock>
-                <Calendar Width="300"></Calendar>
+                <TextBlock Margin="20,20,0,0">Termine erstellen</TextBlock>
+                <DatePicker x:Name="AppointmentDatePicker" Width="200" Margin="0,50,0,0"/>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="100,20,0,0">Von:</TextBlock>
-                    <ComboBox Width="130" Margin="10,20,0,0"></ComboBox>
-                    <TextBlock Margin="10,20,0,0">h</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Margin="100,30,0,0">Von:</TextBlock>
+                    <ComboBox Width="130" Margin="10,30,0,0" x:Name="HoursComboBox"></ComboBox>
+                    <TextBlock Margin="10,30,0,0">h</TextBlock>
+                    <ComboBox Width="130" Margin="10,30,0,0" x:Name="MinutesComboBox"></ComboBox>
+                    <TextBlock Margin="10,30,0,0">min</TextBlock>
                 </StackPanel>
-                
-                <Button Height="30" Margin="100,40,100,0">Termin hinzufügen</Button>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="100,20,0,0">Bis:</TextBlock>
+                    <ComboBox Width="131" Margin="18,20,0,0" x:Name="Hours2ComboBox"></ComboBox>
+                    <TextBlock Margin="10,20,0,0">h</TextBlock>
+                    <ComboBox Width="130" Margin="10,20,0,0" x:Name="Minutes2ComboBox"></ComboBox>
+                    <TextBlock Margin="10,20,0,0">min</TextBlock>
+                </StackPanel>
+
+                <Button Height="30" Margin="100,30,100,0">Termin hinzufügen</Button>
              </StackPanel>
-                <StackPanel Orientation="Vertical" Width="400" Margin="100,0,0,0">
+            <Border BorderBrush="LightGray" BorderThickness="1" Margin="50,20,0,70"/>
+            <StackPanel Orientation="Vertical" Width="400" Margin="100,0,0,0">
                 <TextBlock Margin="20,10,0,0">Meine Termine</TextBlock>
                 <ListBox x:Name="myAppointments" Margin="20,10,20,0" Height="400">
                     <ListBox.ItemTemplate>
@@ -66,7 +75,7 @@
 
                 <Button Height="30" Margin="20,20,20,0">Termin bestätigen</Button>
                 <Button Height="30" Margin="20,20,20,0">Termin ablehnen</Button>
-            </StackPanel>
+             </StackPanel>
         </StackPanel>
     </StackPanel>
 </Page>

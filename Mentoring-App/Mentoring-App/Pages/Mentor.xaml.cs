@@ -24,5 +24,28 @@ namespace Mentoring_App.Pages
         {
             InitializeComponent();
         }
+
+        private void LoadComboboxes(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                HoursComboBox.Items.Add(i.ToString("00"));
+            }
+
+            for (int i = 0; i < 60; i += 5)
+            {
+                MinutesComboBox.Items.Add(i.ToString("00"));
+            }
+
+            for (int i = 0; i < 24; i++)
+            {
+                Hours2ComboBox.Items.Add(i.ToString("00"));
+            }
+
+            for (int i = 0; i < 60; i += 5)
+            {
+                Minutes2ComboBox.Items.Add(i.ToString("00"));
+            }
+        }
     }
 }
