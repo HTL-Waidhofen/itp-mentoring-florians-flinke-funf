@@ -12,11 +12,32 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Margin" Value="5,5,5,5"/>
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="Width" Value="300"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Calibri Light"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="300"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Height" Value="35"/>
         </Style>
         <Style TargetType="Button">
             <Setter Property="Width" Value="200"/>
@@ -29,9 +50,10 @@
     <StackPanel>
         <StackPanel>
             <Button HorizontalAlignment="Left" Background="White" BorderBrush="White" Margin="0" FontSize="15" HorizontalContentAlignment="Left" Padding="5">zurück</Button>
-            <Label HorizontalAlignment="Center" FontSize="60">Registrieren</Label>
+            <Label HorizontalAlignment="Center" FontSize="60" Height="80" Width="300">Registrieren</Label>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" >
             <StackPanel Orientation="Vertical">
                 <Label>Benutzername: </Label>
                 <Label>E-Mail Adresse:</Label>
@@ -39,8 +61,22 @@
                 <Label>Passwort bestätigen:</Label>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <TextBox> Hallo</TextBox>
+                <TextBox>Hallo</TextBox>
+                <TextBox>Hallo</TextBox>
+                <PasswordBox></PasswordBox>
+                <PasswordBox></PasswordBox>
             </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Registrieren als</Label>
+                <ComboBox>
+                    <ComboBoxItem Selector.IsSelected="True">Schüler</ComboBoxItem>
+                    <ComboBoxItem>Mentor</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <Button>Registrieren</Button>
+        </StackPanel>
         </StackPanel>
     </StackPanel>
 </Page>
