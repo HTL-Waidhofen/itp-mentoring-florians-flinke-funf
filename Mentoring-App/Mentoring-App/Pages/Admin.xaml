@@ -5,8 +5,27 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Mentoring_App.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Admin" Background="White" Height="675" Width="1200">
+      d:DesignHeight="675" d:DesignWidth="1200"
+      Title="Admin" Background="White">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0,2,0,0"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="10"></Setter>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Menü">
@@ -16,19 +35,19 @@
                 <MenuItem Header="_Beenden" />
             </MenuItem>
         </Menu>
-        <StackPanel>
+        <StackPanel Width="600">
             <TextBlock>Angefragt</TextBlock>
-            <ListBox></ListBox>
-            <ListBox></ListBox>
-            <DockPanel>
+            <ListBox Height="250"></ListBox>
+            <ListBox Height="150"></ListBox>
+            <DockPanel HorizontalAlignment="Center">
                 <Button>Annehmen</Button>
                 <Button>Ablehnen</Button>
             </DockPanel>
         </StackPanel>
-        <StackPanel>
+        <StackPanel Width="585">
             <TextBlock>Mentoren</TextBlock>
-            <ListBox></ListBox>
-            <Button></Button>
+            <ListBox Height="410"></ListBox>
+            <Button>Mentor entfernen</Button>
         </StackPanel>
     </DockPanel>
 </Page>
