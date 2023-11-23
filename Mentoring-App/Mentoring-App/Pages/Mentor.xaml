@@ -24,7 +24,7 @@
             </MenuItem>
         </Menu>
         <StackPanel Orientation="Horizontal" Height="675">
-            <StackPanel Orientation="Vertical" Width="560">
+             <StackPanel Orientation="Vertical" Width="560">
                 <TextBlock Margin="20,10,0,0">Meine Fächer</TextBlock>
 
                 <ListBox x:Name="subjects" Margin="20,10,20,0" Height="120">
@@ -34,19 +34,27 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                
+                <StackPanel Orientation="Horizontal" Height="100">
+                    <ComboBox Margin="20,10,0,0" Height="30" Width="250"></ComboBox>
+                    <StackPanel Orientation="Vertical" Width="270">
+                        <Button Margin="10,25,0,0" Height="25">Fach hinzufügen</Button>
+                        <Button Margin="10,15,0,0" Height="25">Fach entfernen</Button>
+                    </StackPanel>
+                </StackPanel>
 
-                <TextBlock Margin="20,80,0,0">Termine erstellen</TextBlock>
-                <ListBox x:Name="appointments" Margin="20,10,20,0" Height="200">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <TextBlock Margin="20,50,0,0">Termine erstellen</TextBlock>
+                <Calendar Width="300"></Calendar>
 
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="100,20,0,0">Von:</TextBlock>
+                    <ComboBox Width="130" Margin="10,20,0,0"></ComboBox>
+                    <TextBlock Margin="10,20,0,0">h</TextBlock>
+                </StackPanel>
+                
                 <Button Height="30" Margin="100,40,100,0">Termin hinzufügen</Button>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Width="400" Margin="100,0,0,0">
+             </StackPanel>
+                <StackPanel Orientation="Vertical" Width="400" Margin="100,0,0,0">
                 <TextBlock Margin="20,10,0,0">Meine Termine</TextBlock>
                 <ListBox x:Name="myAppointments" Margin="20,10,20,0" Height="400">
                     <ListBox.ItemTemplate>
