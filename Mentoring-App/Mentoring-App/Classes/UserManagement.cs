@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Data.SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +16,15 @@ namespace Mentoring_App
         // read
         public static List<Student> LoadStudentsFromDB()
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
                 List<Student> students = new List<Student>();
                 string stm = "SELECT * FROM students";
 
-                using (var cmd = new SqliteCommand(stm, con))
+                using (var cmd = new SQLiteCommand(stm, con))
                 {
-                    using (SqliteDataReader rdr = cmd.ExecuteReader())
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
@@ -39,15 +39,15 @@ namespace Mentoring_App
 
         public static List<Mentor> LoadMentorsFromDB()
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
                 List<Mentor> mentors = new List<Mentor>();
                 string stm = "SELECT * FROM mentors";
 
-                using (var cmd = new SqliteCommand(stm, con))
+                using (var cmd = new SQLiteCommand(stm, con))
                 {
-                    using (SqliteDataReader rdr = cmd.ExecuteReader())
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
@@ -62,15 +62,15 @@ namespace Mentoring_App
 
         public static List<Appointment> LoadAppoinmentsFromDB()
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
                 List<Appointment> appointments = new List<Appointment>();
                 string stm = "SELECT * FROM appointments";
 
-                using (var cmd = new SqliteCommand(stm, con))
+                using (var cmd = new SQLiteCommand(stm, con))
                 {
-                    using (SqliteDataReader rdr = cmd.ExecuteReader())
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
@@ -103,13 +103,13 @@ namespace Mentoring_App
         } 
 
         // create
-        public static void AddStudentToDB(Student student)
+        public static void AddStudentToDB(Student student)  
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
 
-                using (var cmd = new SqliteCommand("INSERT INTO students(name, email, password) VALUES(@name,@gehalt,@password)", con))
+                using (var cmd = new SQLiteCommand("INSERT INTO students(name, email, password) VALUES(@name,@gehalt,@password)", con))
                 {
                     cmd.Parameters.AddWithValue("@name", student.Name);
                     cmd.Parameters.AddWithValue("@email", student.Email);
@@ -121,11 +121,11 @@ namespace Mentoring_App
         }
         public static void AddMentorToDB(Mentor mentor)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
 
-                using (var cmd = new SqliteCommand("INSERT INTO mentors(name, email, password, subjects, isApproved, grade) VALUES(@name, @email, @password, @subjects, @isApproved, @grade)", con))
+                using (var cmd = new SQLiteCommand("INSERT INTO mentors(name, email, password, subjects, isApproved, grade) VALUES(@name, @email, @password, @subjects, @isApproved, @grade)", con))
                 {
                     cmd.Parameters.AddWithValue("@name", mentor.Name);
                     cmd.Parameters.AddWithValue("@email", mentor.Email);
@@ -140,11 +140,11 @@ namespace Mentoring_App
         }
         public static void AddAppointmentToDB(Mentor mentor)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
 
-                using (var cmd = new SqliteCommand("INSERT INTO mentors(name, email, password, subjects, isApproved, grade) VALUES(@name, @email, @password, @subjects, @isApproved, @grade)", con))
+                using (var cmd = new SQLiteCommand("INSERT INTO mentors(name, email, password, subjects, isApproved, grade) VALUES(@name, @email, @password, @subjects, @isApproved, @grade)", con))
                 {
                     cmd.Parameters.AddWithValue("@name", mentor.Name);
                     cmd.Parameters.AddWithValue("@email", mentor.Email);
@@ -161,11 +161,11 @@ namespace Mentoring_App
         // delete
         public static void DeleteStudent(Student student)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
                 string stm = "SELECT * FROM students";
-                using (var cmd = new SqliteCommand(stm, con))
+                using (var cmd = new SQLiteCommand(stm, con))
                 {
                     cmd.CommandText = "DELETE FROM students WHERE Email=@email;";
                     cmd.Parameters.AddWithValue("@email", student.Email);
@@ -177,11 +177,11 @@ namespace Mentoring_App
 
         public static void DeleteMentor(Mentor mentor)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
                 string stm = "SELECT * FROM mentors";
-                using (var cmd = new SqliteCommand(stm, con))
+                using (var cmd = new SQLiteCommand(stm, con))
                 {
                     cmd.CommandText = "DELETE FROM mentors WHERE Email=@email;";
                     cmd.Parameters.AddWithValue("@email", mentor.Email);
@@ -193,11 +193,11 @@ namespace Mentoring_App
 
         public static void DeleteAppointment(Appointment appoinment)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
                 string stm = "SELECT * FROM appointments";
-                using (var cmd = new SqliteCommand(stm, con))
+                using (var cmd = new SQLiteCommand(stm, con))
                 {
                     cmd.CommandText = "DELETE FROM appointments WHERE id=@id;";
                     cmd.Parameters.AddWithValue("@id", appoinment.Id);
@@ -211,11 +211,11 @@ namespace Mentoring_App
 
         public static void UpdateStudent(Student student)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
 
-                using (var cmd = new SqliteCommand("SELECT * FROM students", con))
+                using (var cmd = new SQLiteCommand("SELECT * FROM students", con))
                 {
                     cmd.CommandText = "UPDATE students SET name=@name, password=@password WHERE email=@email;";
                     cmd.Parameters.AddWithValue("@name", student.Name);
@@ -229,11 +229,11 @@ namespace Mentoring_App
 
         public static void UpdateMentor(Mentor mentor)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
 
-                using (var cmd = new SqliteCommand("SELECT * FROM mentors", con))
+                using (var cmd = new SQLiteCommand("SELECT * FROM mentors", con))
                 {
                     cmd.CommandText = "UPDATE mentors SET name=@name, password=@password, subjects=@subjects, isApproved=@isApproved, grade=@grade WHERE email=@email;";
                     cmd.Parameters.AddWithValue("@name", mentor.Name);
@@ -249,11 +249,11 @@ namespace Mentoring_App
 
         public static void UpdateMentor(Appointment appointment)
         {
-            using (var con = new SqliteConnection(loadConnectionString()))
+            using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
 
-                using (var cmd = new SqliteCommand("SELECT * FROM appointments", con))
+                using (var cmd = new SQLiteCommand("SELECT * FROM appointments", con))
                 {
                     cmd.CommandText = "UPDATE appointments SET booker=@booker, mentor=@mentor, startEndTime, isBooked=@isBooked, isApproved=@isApproved WHERE id=@id;";
                     cmd.Parameters.AddWithValue("@booker", appointment.Booker);
