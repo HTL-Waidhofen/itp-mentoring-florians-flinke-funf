@@ -247,6 +247,27 @@ namespace Mentoring_App
             }
         }
 
+        public static void UpdateMentor(Appointment appointment)
+        {
+            using (var con = new SqliteConnection(loadConnectionString()))
+            {
+                con.Open();
+
+                using (var cmd = new SqliteCommand("SELECT * FROM appointments", con))
+                {
+                    cmd.CommandText = "UPDATE appointments SET booker=@booker, mentor=@mentor, startEndTime, isBooked=@isBooked, isApproved=@isApproved WHERE id=@id;";
+                    cmd.Parameters.AddWithValue("@booker", appointment.Booker);
+                    cmd.Parameters.AddWithValue("@mentor", appointment.Mentor);
+                    cmd.Parameters.AddWithValue("@startEndTime", appointment.StartTime + ";" + appointment.EndTime);
+                    cmd.Parameters.AddWithValue("@isBooked", Convert.ToInt32(appointment.IsBooked));
+                    cmd.Parameters.AddWithValue("@isApproved", Convert.ToInt32(appointment.isApproved));
+                    cmd.Parameters.AddWithValue("@id", appointment.Id);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         //List<Student> students1 = LoadStudentsFromDB();
 
         //public void Test(List<Student> students)
