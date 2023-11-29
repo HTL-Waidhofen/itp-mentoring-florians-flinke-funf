@@ -157,6 +157,21 @@ namespace Mentoring_App
                 }
             }
         }
+        public static void DeleteStudent(Student student)
+        {
+            using (var con = new SqliteConnection(loadConnectionString()))
+            {
+                con.Open();
+                string stm = "SELECT * FROM appointments";
+                using (var cmd = new SqliteCommand(stm, con))
+                {
+                    cmd.CommandText = "DELETE FROM Student WHERE Email=@email;";
+                    cmd.Parameters.AddWithValue("@email", student.Email);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         // Update
 
