@@ -157,7 +157,41 @@ namespace Mentoring_App
                 }
             }
         }
+        
+        // delete
         public static void DeleteStudent(Student student)
+        {
+            using (var con = new SqliteConnection(loadConnectionString()))
+            {
+                con.Open();
+                string stm = "SELECT * FROM students";
+                using (var cmd = new SqliteCommand(stm, con))
+                {
+                    cmd.CommandText = "DELETE FROM students WHERE Email=@email;";
+                    cmd.Parameters.AddWithValue("@email", student.Email);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void DeleteMentor(Mentor mentor)
+        {
+            using (var con = new SqliteConnection(loadConnectionString()))
+            {
+                con.Open();
+                string stm = "SELECT * FROM mentors";
+                using (var cmd = new SqliteCommand(stm, con))
+                {
+                    cmd.CommandText = "DELETE FROM mentors WHERE Email=@email;";
+                    cmd.Parameters.AddWithValue("@email", mentor.Email);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void DeleteAppointment(Appointment appoinment)
         {
             using (var con = new SqliteConnection(loadConnectionString()))
             {
@@ -165,8 +199,8 @@ namespace Mentoring_App
                 string stm = "SELECT * FROM appointments";
                 using (var cmd = new SqliteCommand(stm, con))
                 {
-                    cmd.CommandText = "DELETE FROM Student WHERE Email=@email;";
-                    cmd.Parameters.AddWithValue("@email", student.Email);
+                    cmd.CommandText = "DELETE FROM appointments WHERE id=@id;";
+                    cmd.Parameters.AddWithValue("@id", appoinment.Id);
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
                 }
@@ -175,7 +209,43 @@ namespace Mentoring_App
 
         // Update
 
+        public static void UpdateStudent(Student student)
+        {
+            using (var con = new SqliteConnection(loadConnectionString()))
+            {
+                con.Open();
 
+                using (var cmd = new SqliteCommand("SELECT * FROM students", con))
+                {
+                    cmd.CommandText = "UPDATE students SET name=@name, password=@password WHERE email=@email;";
+                    cmd.Parameters.AddWithValue("@name", student.Name);
+                    cmd.Parameters.AddWithValue("@password", student.Password);
+                    cmd.Parameters.AddWithValue("@email", student.Email);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void UpdateMentor(Mentor mentor)
+        {
+            using (var con = new SqliteConnection(loadConnectionString()))
+            {
+                con.Open();
+
+                using (var cmd = new SqliteCommand("SELECT * FROM mentors", con))
+                {
+                    cmd.CommandText = "UPDATE mentors SET name=@name, password=@password, subjects=@subjects, isApproved=@isApproved, grade=@grade WHERE email=@email;";
+                    cmd.Parameters.AddWithValue("@name", mentor.Name);
+                    cmd.Parameters.AddWithValue("@password", mentor.Password);
+                    cmd.Parameters.AddWithValue("@subjects", mentor.Subjects);
+                    cmd.Parameters.AddWithValue("@isApproved", Convert.ToInt32(mentor.IsApproved));
+                    cmd.Parameters.AddWithValue("@email", mentor.Email);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         //List<Student> students1 = LoadStudentsFromDB();
 
