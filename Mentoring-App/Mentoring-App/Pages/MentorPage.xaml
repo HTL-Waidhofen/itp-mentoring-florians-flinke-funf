@@ -1,4 +1,4 @@
-﻿<Page x:Class="Mentoring_App.Pages.Mentor"
+﻿<Page x:Class="Mentoring_App.Pages.MentorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Mentoring_App.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="675" d:DesignWidth="1200" Background="White"
-      Title="Mentor">
+      Title="MentorPage">
     <Page.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Calibri"/>
