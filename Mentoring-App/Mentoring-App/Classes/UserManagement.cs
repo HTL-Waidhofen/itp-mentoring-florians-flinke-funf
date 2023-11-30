@@ -109,7 +109,7 @@ namespace Mentoring_App
             {
                 con.Open();
 
-                using (var cmd = new SQLiteCommand("INSERT INTO students(name, email, password) VALUES(@name,@gehalt,@password)", con))
+                using (var cmd = new SQLiteCommand("INSERT INTO students(name, email, password) VALUES(@name,@email,@password)", con))
                 {
                     cmd.Parameters.AddWithValue("@name", student.Name);
                     cmd.Parameters.AddWithValue("@email", student.Email);
