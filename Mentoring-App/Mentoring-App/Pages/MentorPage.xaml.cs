@@ -18,9 +18,9 @@ namespace Mentoring_App.Pages
     /// <summary>
     /// Interaktionslogik für Mentor.xaml
     /// </summary>
-    public partial class Mentor : Page
+    public partial class MentorPage : Page
     {
-        public Mentor()
+        public MentorPage()
         {
             InitializeComponent();
         }
