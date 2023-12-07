@@ -24,5 +24,25 @@ namespace Mentoring_App.Pages
         {
             InitializeComponent();
         }
+
+        private void Register_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new registration());
+        }
+
+        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserManagement.confirmLogin(email_input.Text, password_input.Password))
+            {
+                if (UserManagement.GetUserStatus(email_input.Text) == "student")
+                {
+                    NavigationService.Navigate(new Students());
+                }
+                else if (UserManagement.GetUserStatus(email_input.Text) == "mentor")
+                {
+                    NavigationService.Navigate(new MentorPage());
+                }
+            }
+        }
     }
 }

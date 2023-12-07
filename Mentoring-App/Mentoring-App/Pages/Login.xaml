@@ -8,6 +8,19 @@
       mc:Ignorable="d" 
       d:DesignHeight="675" d:DesignWidth="400" Background="#F4F6F4"
       Title="Login">
+    <StackPanel Margin="20">
+        <TextBlock Style="{StaticResource Title}">LOGIN</TextBlock>
+        <DockPanel Margin="0,40,0,0">
+            <TextBlock Width="120" Height="30">E-Mail</TextBlock>
+            <TextBox x:Name="email_input"/>
+        </DockPanel>
+        <DockPanel Margin="0,10">
+            <TextBlock Width="120" Height="30">Passwort</TextBlock>
+            <PasswordBox x:Name="password_input"/>
+        </DockPanel>
+        <Button Click="Login_Button_Click">Anmelden</Button>
+        <TextBlock Style="{StaticResource Text}">Ich habe noch kein Konto</TextBlock>
+        <Button Click="Register_Button_Click">Registrieren</Button>
     <StackPanel>
         <StackPanel Margin="20">
             <TextBlock Foreground="#555555" Margin="0,40,0,0" HorizontalAlignment="Center" FontSize="80" FontFamily="Arial">LOGIN</TextBlock>

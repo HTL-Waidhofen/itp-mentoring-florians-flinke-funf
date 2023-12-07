@@ -310,5 +310,47 @@ namespace Mentoring_App
         {
             return "DataSource=MentoringDB.db;Version=3;";
         }
+        public static bool confirmLogin(string usermail, string password)
+        {
+            students = LoadStudentsFromDB();
+            mentors = LoadMentorsFromDB();
+
+            foreach (var s in students)
+            {
+                if (s.Email == usermail && s.Password == password)
+                {
+                    return true;
+                }
+            }
+            foreach (var m in mentors)
+            {
+                if (m.Email == usermail && m.Password == password)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static bool IsEmailValid(string email)
+        {
+            Regex regex = new Regex(@"^(\w{1,50}.?\w{1,50}@htlwy.at)$");
+            return (regex.IsMatch(email));
+        }
+        public static string GetUserStatus(string email)
+        {
+            students = LoadStudentsFromDB();
+            mentors = LoadMentorsFromDB();
+            foreach (Mentor m in mentors)
+            {
+                if (m.Email == email)
+                    return "mentor";
+            }
+            foreach (Student s in students)
+            {
+                if (s.Email == email)
+                    return "student";
+            }
+            return "not available";
+        }
     }
 }
