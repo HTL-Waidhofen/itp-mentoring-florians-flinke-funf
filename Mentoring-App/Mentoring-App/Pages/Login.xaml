@@ -61,8 +61,8 @@
             <TextBlock Width="120" Height="30">Passwort</TextBlock>
             <PasswordBox x:Name="password_input"/>
         </DockPanel>
-        <Button Click="Button_Click">Anmelden</Button>
+        <Button Click="Login_Button_Click">Anmelden</Button>
         <TextBlock Style="{StaticResource Text}">Ich habe noch kein Konto</TextBlock>
-        <Button>Registrieren</Button>
+        <Button Click="Register_Button_Click">Registrieren</Button>
     </StackPanel>
 </Page>
