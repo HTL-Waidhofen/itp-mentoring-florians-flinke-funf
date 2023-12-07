@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Mentoring_App.Pages;
 namespace Mentoring_App.Pages
 {
     /// <summary>
@@ -23,6 +23,26 @@ namespace Mentoring_App.Pages
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void Register_Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserManagement.confirmLogin(email_input.Text, password_input.Password))
+            {
+                if (UserManagement.GetUserStatus(email_input.Text) == "student")
+                {
+                   NavigationService.Navigate(new Students());
+                }
+                else if (UserManagement.GetUserStatus(email_input.Text) == "mentor")
+                {
+                    NavigationService.Navigate(new MentorPage());
+                }
+            }
         }
     }
 }
