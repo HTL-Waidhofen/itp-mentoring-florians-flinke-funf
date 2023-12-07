@@ -54,15 +54,15 @@
     <StackPanel Margin="20">
         <TextBlock Style="{StaticResource Title}">LOGIN</TextBlock>
         <DockPanel Margin="0,40,0,0">
-            <TextBlock Width="120" Height="30">E-Mail</TextBlock>
-            <TextBox x:Name="email_input"/>
+            <TextBlock Width="120" Height="30">Benutzername</TextBlock>
+            <TextBox></TextBox>
         </DockPanel>
         <DockPanel Margin="0,10">
             <TextBlock Width="120" Height="30">Passwort</TextBlock>
-            <PasswordBox x:Name="password_input"/>
+            <PasswordBox></PasswordBox>
         </DockPanel>
-        <Button x:Name="Login_Button" Click="Login_Button_Click">Anmelden</Button>
+        <Button>Anmelden</Button>
         <TextBlock Style="{StaticResource Text}">Ich habe noch kein Konto</TextBlock>
-        <Button x:Name="Register_Button" Click="Register_Button_Click">Registrieren</Button>
+        <Button>Registrieren</Button>
     </StackPanel>
 </Page>
