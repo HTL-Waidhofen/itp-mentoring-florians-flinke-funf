@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Windows;
+using Mentoring_App.Pages;
 
 namespace Mentoring_App
 {
@@ -278,6 +281,31 @@ namespace Mentoring_App
         //    }
         //}
 
+        // test valid email
+
+        public static bool IsEmailValid(string email) 
+        {
+            Regex regex = new Regex(@"(\w{1,50}.?\w{1,50}@htlwy.at)$");
+            return(regex.IsMatch(email));
+           
+        }
+
+
+        public static bool IsPasswordValid(string password, string confpassword)
+        {
+            if (password == confpassword)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        // Register
+
+        public static void StudentRegister(string name, string email, string password)
+        {
+                Student s = new Student(name, email, password);
+        }
         private static string loadConnectionString()
         {
             return "DataSource=MentoringDB.db;Version=3;";

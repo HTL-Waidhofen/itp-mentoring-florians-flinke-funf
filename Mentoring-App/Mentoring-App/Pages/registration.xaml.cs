@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Mentoring_App.Pages;
 
 namespace Mentoring_App.Pages
 {
@@ -23,6 +24,25 @@ namespace Mentoring_App.Pages
         public registration()
         {
             InitializeComponent();
+
+            
+
+
+
+
+        }
+
+        private void StudentRegister_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
+            {
+                UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
