@@ -27,7 +27,7 @@ namespace Mentoring_App.Pages
 
         private void Register_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            NavigationService.Navigate(new registration());
         }
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
