@@ -28,5 +28,30 @@ namespace Mentoring_App.Pages
         {
             InitializeComponent();
         }
+
+        private void subjectSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            subjects.Items.Clear();
+
+            foreach (string subject in searchMatchingSubjects(subjectSearch.Text))
+            {
+                subjects.Items.Add(new TextBox() { Text = subject });
+            }
+        }
+
+        public List<string> searchMatchingSubjects(string searchText)
+        {
+            List<string> matchList = new List<string>();
+
+            foreach (string subject in subjectList)
+            {
+                if (subject.Contains(searchText))
+                {
+                    matchList.Add(subject);
+                }
+            }
+
+            return matchList;
+        }
     }
 }

@@ -25,7 +25,7 @@
         <StackPanel Orientation="Horizontal" Height="675">
             <StackPanel Orientation="Vertical" Width="560">
                 <TextBlock Margin="20,10,0,0">nach Fach suchen:</TextBlock>
-                <TextBox x:Name="subjectSearch" Margin="20,0,20,0"/>
+                <TextBox x:Name="subjectSearch" Margin="20,0,20,0" TextChanged="subjectSearch_TextChanged"/>
 
                 <ListBox x:Name="subjects" Margin="20,30,20,0" Height="120">
                     <ListBox.ItemTemplate>
