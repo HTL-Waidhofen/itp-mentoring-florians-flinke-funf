@@ -61,10 +61,10 @@
                 <Label>Passwort bestätigen:</Label>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <TextBox>Hallo</TextBox>
-                <TextBox>Hallo</TextBox>
-                <PasswordBox></PasswordBox>
-                <PasswordBox></PasswordBox>
+                    <TextBox x:Name="Name_TextBox"></TextBox>
+                    <TextBox x:Name="Email_TextBox"></TextBox>
+                <PasswordBox x:Name="Password_TextBox"></PasswordBox>
+                <PasswordBox x:Name="PasswordConfirm_TextBox"></PasswordBox>
             </StackPanel>
         </StackPanel>
         <StackPanel>
@@ -75,7 +75,7 @@
                     <ComboBoxItem>Mentor</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
-            <Button>Registrieren</Button>
+            <Button x:Name="StudentRegisterButton" Click="StudentRegister_Click">Registrieren</Button>
         </StackPanel>
         </StackPanel>
     </StackPanel>
