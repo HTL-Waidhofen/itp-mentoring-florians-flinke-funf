@@ -331,11 +331,6 @@ namespace Mentoring_App
             }
             return false;
         }
-        public static bool IsEmailValid(string email)
-        {
-            Regex regex = new Regex(@"^(\w{1,50}.?\w{1,50}@htlwy.at)$");
-            return (regex.IsMatch(email));
-        }
         public static string GetUserStatus(string email)
         {
             students = LoadStudentsFromDB();
