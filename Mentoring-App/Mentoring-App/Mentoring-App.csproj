@@ -9,11 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\BlueOcean.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Pages\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\BlueOcean.ttf" />
   </ItemGroup>
 
 </Project>
