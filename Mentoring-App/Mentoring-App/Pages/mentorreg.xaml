@@ -73,6 +73,9 @@
                         <CheckBox>Systemtechnik-E</CheckBox>
                         <CheckBox>Systemtechnik</CheckBox>
                     </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10,10,10,10" VerticalAlignment="Center">
+                        <CheckBox>Cloud Computing und industrielle Technologien</CheckBox>
+                    </StackPanel>
                 </DockPanel>
             </GroupBox>
         </StackPanel>
