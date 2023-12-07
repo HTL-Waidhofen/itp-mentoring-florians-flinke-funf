@@ -1,5 +1,4 @@
-﻿using Mentoring_App.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Mentoring_App
+namespace Mentoring_App.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaktionslogik für Admin.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Admin : Page
     {
-        public MainWindow()
+        public Admin()
         {
             InitializeComponent();
-            application.Content = new Login();
-        }
-
-        private void Window_SourceInitialized(object sender, EventArgs e)
-        {
-            
         }
     }
 }
