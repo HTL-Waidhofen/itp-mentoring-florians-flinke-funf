@@ -24,5 +24,12 @@ namespace Mentoring_App.Pages
         {
             InitializeComponent();
         }
+
+        private void MentorRegister_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+
     }
 }
