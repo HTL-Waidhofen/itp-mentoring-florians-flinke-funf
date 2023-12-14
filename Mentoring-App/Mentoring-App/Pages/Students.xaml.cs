@@ -24,6 +24,18 @@ namespace Mentoring_App.Pages
         {
             InitializeComponent();
 
+            Student localStudent = new Student("","","");
+
+            foreach (Student stu in UserManagement.students)
+            {
+                if (UserManagement.localUserEmail == stu.Email) localStudent = stu;
+            }
+
+            foreach (Appointment appo in localStudent.bookings)
+            {
+                myAppointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
+            }
+
             FillWithAllSubjects();
         }
 
@@ -35,7 +47,7 @@ namespace Mentoring_App.Pages
 
             foreach (string subject in searchMatchingSubjects(subjectSearch.Text))
             {
-                subjects_LstBx.Items.Add(new TextBox() { Text = subject });
+                subjects_LstBx.Items.Add(subject);
             }
         }
         private void subjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,7 +57,7 @@ namespace Mentoring_App.Pages
             List<Appointment> test = UserManagement.GetAppointmentsFromSubject(subjects_LstBx.SelectedItem.ToString()); // TExtbox ??
             foreach (Appointment appo in test)
             {
-                appointments_LstBx.Items.Add(new TextBox() {Text = $"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}"});
+                appointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}");
             }
         }
 
@@ -68,9 +80,32 @@ namespace Mentoring_App.Pages
         {
             foreach (string subject in UserManagement.subjectList) // show every subject
             {
-                subjects_LstBx.Items.Add(new TextBox() { Text = subject });
+                subjects_LstBx.Items.Add(subject);
             }
         }
 
+        private void removeAppointment_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            // Termin entfernen in c# -> Datenbank
+
+            if (myAppointments_LstBx.SelectedItem == null) return;
+
+            // Appointment Objekt bekommen anhand von ID 
+            string tempSelectedItem = myAppointments_LstBx.SelectedItem.ToString();
+            string IDfromSelected = tempSelectedItem.Substring(tempSelectedItem.IndexOf("ID: ") + 1, tempSelectedItem.Length - tempSelectedItem.IndexOf("ID: "));
+
+            Appointment appointmentForDeletion = new Appointment("","","","","","") ;
+            foreach (Appointment appo in UserManagement.appointments)
+            {
+                if (appo.Id == int.Parse(IDfromSelected))
+                {
+                    appointmentForDeletion = appo;
+                }
+            }
+
+            // DB
+            UserManagement.DeleteAppointment(appointmentForDeletion);
+            UserManagement.appointments.Remove(appointmentForDeletion);
+        }
     }
 }
