@@ -20,22 +20,32 @@ namespace Mentoring_App.Pages
     /// </summary>
     public partial class Students : Page
     {
-        public List<string> subjectList = new List<string>() { "Deutsch", "Mathematik", "Englisch", "Geografie,Geschichte,Politische Bildung", "Naturwissenschaften", "Wirtschaft und Recht",
-                                                            "Netzwerktechnik", "Softwareentwicklung", "Medientechnik", "Computerpraktikum", "IT-Sicherheit", "Informationstechnische Projekte",
-                                                            "Informationssysteme", "Systemtechnik-E", "Systemtechnik", "Cloud Computing und industrielle Technologien"};
-
         public Students()
         {
             InitializeComponent();
+
+            FillWithAllSubjects();
         }
 
         private void subjectSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            subjects.Items.Clear();
+            subjects_LstBx.Items.Clear();
+
+            if (subjectSearch.Text == "") FillWithAllSubjects();
 
             foreach (string subject in searchMatchingSubjects(subjectSearch.Text))
             {
-                subjects.Items.Add(new TextBox() { Text = subject });
+                subjects_LstBx.Items.Add(new TextBox() { Text = subject });
+            }
+        }
+        private void subjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            appointments_LstBx.Items.Clear();
+
+            List<Appointment> test = UserManagement.GetAppointmentsFromSubject(subjects_LstBx.SelectedItem.ToString()); // TExtbox ??
+            foreach (Appointment appo in test)
+            {
+                appointments_LstBx.Items.Add(new TextBox() {Text = $"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}"});
             }
         }
 
@@ -43,7 +53,7 @@ namespace Mentoring_App.Pages
         {
             List<string> matchList = new List<string>();
 
-            foreach (string subject in subjectList)
+            foreach (string subject in UserManagement.subjectList)
             {
                 if (subject.Contains(searchText))
                 {
@@ -53,5 +63,14 @@ namespace Mentoring_App.Pages
 
             return matchList;
         }
+
+        public void FillWithAllSubjects()
+        {
+            foreach (string subject in UserManagement.subjectList) // show every subject
+            {
+                subjects_LstBx.Items.Add(new TextBox() { Text = subject });
+            }
+        }
+
     }
 }

@@ -27,7 +27,7 @@
                 <TextBlock Margin="20,10,0,0">nach Fach suchen:</TextBlock>
                 <TextBox x:Name="subjectSearch" Margin="20,0,20,0" TextChanged="subjectSearch_TextChanged"/>
 
-                <ListBox x:Name="subjects" Margin="20,30,20,0" Height="120">
+                <ListBox x:Name="subjects_LstBx" Margin="20,30,20,0" Height="120" SelectionChanged="subjects_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"/>
@@ -36,7 +36,7 @@
                 </ListBox>
 
                 <TextBlock Margin="20,80,0,0">Termine</TextBlock>
-                <ListBox x:Name="appointments" Margin="20,10,20,0" Height="200">
+                <ListBox x:Name="appointments_LstBx" Margin="20,10,20,0" Height="200">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"/>
