@@ -24,6 +24,12 @@ namespace Mentoring_App.Pages
         public registration()
         {
             InitializeComponent();
+
+            
+
+
+
+
         }
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
@@ -32,26 +38,11 @@ namespace Mentoring_App.Pages
             {
                 UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
             }
-            else
-            {
-                MessageBox.Show("Email or password not valid");
-                throw new Exception();
-            }
         }
-        private void GoToMentorreg_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             
-            if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
-            {
-                UserManagement.localemail = Email_TextBox.Text;
-                NavigationService.Navigate(new mentorreg());
-                UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
-            }
-            else
-            {
-                MessageBox.Show("Email or password not valid");
-                throw new Exception();
-            }
         }
     }
 }

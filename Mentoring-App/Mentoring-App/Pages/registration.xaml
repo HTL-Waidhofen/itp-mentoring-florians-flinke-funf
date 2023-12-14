@@ -67,10 +67,16 @@
                 <PasswordBox x:Name="PasswordConfirm_TextBox"></PasswordBox>
             </StackPanel>
         </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
-                <Button x:Name="StudentRegisterButton" Click="StudentRegister_Click">Registrieren</Button>
-                <Button x:Name="GoToMentorreg" Click="GoToMentorreg_Click">Als Mentor registrieren</Button>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Registrieren als</Label>
+                <ComboBox>
+                    <ComboBoxItem Selector.IsSelected="True">Schüler</ComboBoxItem>
+                    <ComboBoxItem>Mentor</ComboBoxItem>
+                </ComboBox>
             </StackPanel>
+            <Button x:Name="StudentRegisterButton" Click="StudentRegister_Click">Registrieren</Button>
+        </StackPanel>
         </StackPanel>
     </StackPanel>
 </Page>

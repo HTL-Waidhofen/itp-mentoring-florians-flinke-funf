@@ -76,6 +76,6 @@
                 </DockPanel>
             </GroupBox>
         </StackPanel>
-        <Button x:Name="MentorRegister" Click="MentorRegister_Click">Registrieren</Button>
+        <Button>Registrieren</Button>
     </StackPanel>
 </Page>

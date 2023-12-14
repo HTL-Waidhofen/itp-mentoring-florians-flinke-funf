@@ -16,7 +16,6 @@ namespace Mentoring_App
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
 
-        public static string localemail;
         // read
         public static List<Student> LoadStudentsFromDB()
         {
@@ -301,26 +300,12 @@ namespace Mentoring_App
             else return false;
         }
 
-        public static int GetStudentIndex(List<Student> students, string localemail)
-        {
-            for (int i = 0; i < students.Count; i++)
-            {
-
-            }
-        }
-
         // Register
 
         public static void StudentRegister(string name, string email, string password)
         {
                 Student s = new Student(name, email, password);
         }
-        public static void MentorRegister(string name, string email, string password, string subject, string isApproved, string grade)
-        {
-            Mentor m = new Mentor(name, email, password, subject, isApproved, grade);
-        }
-
-
         private static string loadConnectionString()
         {
             return "DataSource=MentoringDB.db;Version=3;";
