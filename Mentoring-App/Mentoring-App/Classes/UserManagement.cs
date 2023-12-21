@@ -251,7 +251,7 @@ namespace Mentoring_App
             }
         }
 
-        public static void UpdateMentor(Appointment appointment)
+        public static void UpdateAppointment(Appointment appointment)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {

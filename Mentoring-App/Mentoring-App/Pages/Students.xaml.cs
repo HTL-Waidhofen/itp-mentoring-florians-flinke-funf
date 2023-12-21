@@ -31,10 +31,7 @@ namespace Mentoring_App.Pages
                 if (UserManagement.localUserEmail == stu.Email) localStudent = stu;
             }
 
-            foreach (Appointment appo in localStudent.bookings)
-            {
-                myAppointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
-            }
+            UpdateMyAppointments(localStudent);
 
             FillWithAllSubjects();
         }
@@ -54,13 +51,12 @@ namespace Mentoring_App.Pages
         {
             appointments_LstBx.Items.Clear();
 
-            List<Appointment> test = UserManagement.GetAppointmentsFromSubject(subjects_LstBx.SelectedItem.ToString()); // TExtbox ??
-            foreach (Appointment appo in test)
+            List<Appointment> appointmentsFromSubject = UserManagement.GetAppointmentsFromSubject(subjects_LstBx.SelectedItem.ToString()); // TExtbox ??
+            foreach (Appointment appo in appointmentsFromSubject)
             {
                 appointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}");
             }
         }
-
         public List<string> searchMatchingSubjects(string searchText)
         {
             List<string> matchList = new List<string>();
@@ -75,7 +71,13 @@ namespace Mentoring_App.Pages
 
             return matchList;
         }
-
+        public void UpdateMyAppointments(Student localStudent)
+        {
+            foreach (Appointment appo in localStudent.bookings)
+            {
+                myAppointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
+            }
+        }
         public void FillWithAllSubjects()
         {
             foreach (string subject in UserManagement.subjectList) // show every subject
@@ -83,12 +85,9 @@ namespace Mentoring_App.Pages
                 subjects_LstBx.Items.Add(subject);
             }
         }
-
         private void removeAppointment_Btn_Click(object sender, RoutedEventArgs e)
         {
-            // Termin entfernen in c# -> Datenbank
-
-            if (myAppointments_LstBx.SelectedItem == null) return;
+            if (myAppointments_LstBx.SelectedItem == null) return; // implement Messagebox
 
             // Appointment Objekt bekommen anhand von ID 
             string tempSelectedItem = myAppointments_LstBx.SelectedItem.ToString();
@@ -103,9 +102,35 @@ namespace Mentoring_App.Pages
                 }
             }
 
-            // DB
-            UserManagement.DeleteAppointment(appointmentForDeletion);
-            UserManagement.appointments.Remove(appointmentForDeletion);
+            UserManagement.DeleteAppointment(appointmentForDeletion); // DB
+            UserManagement.appointments.Remove(appointmentForDeletion); // C#
+        }
+
+        private void bookAppointment_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (appointments_LstBx.SelectedItem == null) return; // implement Messagebox
+
+            // in Liste von Mentor und Student einfügen - C# und DB
+            /*
+             * C#:
+             * Student.bookings
+             * Mentor.appointments
+             * appointments.booker
+             * 
+             * usermanagement .
+             * 
+             * zuerst C# dann DB
+             * mit .update---
+            */
+
+            Student localStudent = new Student("", "", "");
+
+            foreach (Student stu in UserManagement.students)
+            {
+                if (UserManagement.localUserEmail == stu.Email) localStudent = stu;
+            }
+
+            // get mentor, appointent -> db mit update...
         }
     }
 }
