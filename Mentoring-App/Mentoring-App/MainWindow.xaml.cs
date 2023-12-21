@@ -26,10 +26,5 @@ namespace Mentoring_App
             InitializeComponent();
             application.Content = new Login();
         }
-
-        private void Window_SourceInitialized(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

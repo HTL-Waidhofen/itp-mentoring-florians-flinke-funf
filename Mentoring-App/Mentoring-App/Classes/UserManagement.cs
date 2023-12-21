@@ -271,15 +271,15 @@ namespace Mentoring_App
             }
         }
 
-        //List<Student> students1 = LoadStudentsFromDB();
+        List<Student> students1 = LoadStudentsFromDB();
 
-        //public void Test(List<Student> students)
-        //{
-        //    foreach (Student s in students)
-        //    {
-        //        Console.WriteLine(s);
-        //    }
-        //}
+        public void Test(List<Student> students)
+        {
+            foreach (Student s in students)
+            {
+                Console.WriteLine(s);
+            }
+        }
 
         // test valid email
 
