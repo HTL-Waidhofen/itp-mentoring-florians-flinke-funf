@@ -347,5 +347,10 @@ namespace Mentoring_App
             }
             return "not available";
         }
+
+        public static void MentorRegister()
+        {
+
+        }
     }
 }

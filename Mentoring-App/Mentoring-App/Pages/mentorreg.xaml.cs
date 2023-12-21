@@ -27,7 +27,7 @@ namespace Mentoring_App.Pages
 
         private void mentorreg_Click(object sender, RoutedEventArgs e)
         {
-
+            UserManagement.MentorRegister();
         }
     }
 }
