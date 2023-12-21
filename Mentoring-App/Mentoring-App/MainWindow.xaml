@@ -5,6 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mentoring_App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="675" Width="400" ResizeMode="NoResize">
+        Title="MainWindow" Height="675" Width="1200" ResizeMode="NoResize">
     <Frame x:Name="application"></Frame>
 </Window>

@@ -76,6 +76,6 @@
                 </DockPanel>
             </GroupBox>
         </StackPanel>
-        <Button>Registrieren</Button>
+        <Button Click="mentorreg_Click">Registrieren</Button>
     </StackPanel>
 </Page>
