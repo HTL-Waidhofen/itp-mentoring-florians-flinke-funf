@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,7 @@ namespace Mentoring_App.Pages
         public MentorPage()
         {
             InitializeComponent();
+            LoadMentorAppointments();
         }
 
         private void LoadComboboxes(object sender, RoutedEventArgs e)
@@ -46,6 +48,11 @@ namespace Mentoring_App.Pages
             {
                 Minutes2ComboBox.Items.Add(i.ToString("00"));
             }
+        }
+        private void LoadMentorAppointments() 
+        {
+            List<Appointment> MentorAppointments = UserManagement.GetMentorAppointments();
+            myAppointments.ItemsSource = MentorAppointments;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Mentoring_App
         public MainWindow()
         {
             InitializeComponent();
-            application.Content = new Login();
+            application.Content = new MentorPage();
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)

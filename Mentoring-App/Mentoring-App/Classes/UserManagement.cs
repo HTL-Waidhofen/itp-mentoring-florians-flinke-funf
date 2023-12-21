@@ -15,6 +15,10 @@ namespace Mentoring_App
         public static List<Student> students = new List<Student>();
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
+        public List<string> subjectList = new List<string>() { "Deutsch", "Mathematik", "Englisch", "Geografie,Geschichte,Politische Bildung", "Naturwissenschaften", "Wirtschaft und Recht",
+                                                    "Netzwerktechnik", "Softwareentwicklung", "Medientechnik", "Computerpraktikum", "IT-Sicherheit", "Informationstechnische Projekte",
+                                                    "Informationssysteme", "Systemtechnik-E", "Systemtechnik", "Cloud Computing und industrielle Technologien"};
+        public static string localEmail = "";
 
         // read
         public static List<Student> LoadStudentsFromDB()
@@ -77,7 +81,7 @@ namespace Mentoring_App
                     {
                         while (rdr.Read())
                         {
-                            Appointment appointment = new Appointment(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(4), rdr.GetString(5));
+                            Appointment appointment = new Appointment(rdr.GetString(0), rdr.GetString(1), rdr.GetInt32(2).ToString(), rdr.GetString(3), rdr.GetInt32(4).ToString(), rdr.GetInt32(5).ToString());
                             appointments.Add(appointment);
                         }
                         return appointments;
@@ -269,6 +273,19 @@ namespace Mentoring_App
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+        public static List<Appointment> GetMentorAppointments() 
+        {
+            appointments = LoadAppoinmentsFromDB();
+            List<Appointment> MentorAppointments = new List<Appointment>();
+            foreach (var appointment in appointments)
+            {
+                if(appointment.Mentor.Email == localEmail) 
+                {
+                    MentorAppointments.Add(appointment);
+                }
+            }
+            return MentorAppointments;
         }
 
         //List<Student> students1 = LoadStudentsFromDB();
