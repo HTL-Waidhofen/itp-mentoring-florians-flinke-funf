@@ -24,7 +24,12 @@ namespace Mentoring_App
         public MainWindow()
         {
             InitializeComponent();
-            application.Content = new mentorreg();
+            application.Content = new Login();
+        }
+        public void Resize()
+        {
+            Height = 675;
+            Width = 1200;
         }
     }
 }
