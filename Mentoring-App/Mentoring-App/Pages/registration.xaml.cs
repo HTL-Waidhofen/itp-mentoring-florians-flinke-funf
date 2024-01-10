@@ -34,9 +34,22 @@ namespace Mentoring_App.Pages
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow m = (MainWindow)Application.Current.MainWindow;
             if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
             {
-                UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                if(StudentOrMentor.SelectedIndex == 0)
+                {
+                    m.application.Content = new Students();
+                    UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                }
+                else
+                {
+                    m.application.Content = new mentorreg();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Felder ausfüllen!","Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
