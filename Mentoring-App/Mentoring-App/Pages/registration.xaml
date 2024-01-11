@@ -70,7 +70,7 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Registrieren als</Label>
-                <ComboBox>
+                <ComboBox x:Name="ComboBox_SelectRole">
                     <ComboBoxItem Selector.IsSelected="True">Schüler</ComboBoxItem>
                     <ComboBoxItem>Mentor</ComboBoxItem>
                 </ComboBox>

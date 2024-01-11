@@ -312,15 +312,21 @@ namespace Mentoring_App
 
         public static bool IsEmailValid(string email)
         {
-            Regex regex = new Regex(@"(\w{1,50}.?\w{1,50}@htlwy.at)$");
-            return (regex.IsMatch(email));
-
+            foreach(Student s in students)
+            {
+                if (email == s.Email)
+                {
+                    return false;
+                }
+            }
+            Regex regex = new Regex(@"(\w{1,50}\.?\w{1,50}@htlwy\.at)$");
+            return(regex.IsMatch(email));
         }
 
 
         public static bool IsPasswordValid(string password, string confpassword)
         {
-            if (password == confpassword)
+            if (password == confpassword && password.Length >= 4)
             {
                 return true;
             }
@@ -332,6 +338,8 @@ namespace Mentoring_App
         public static void StudentRegister(string name, string email, string password)
         {
             Student s = new Student(name, email, password);
+            students.Add(s);
+            AddStudentToDB(s);
         }
         private static string loadConnectionString()
         {
