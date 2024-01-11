@@ -55,11 +55,13 @@ namespace Mentoring_App.Pages
             if (electricalEngineering.IsChecked == true) { subjects += "electricalEngineering,"; }
             if (systemTechnology.IsChecked == true) { subjects += "systemTechnology,"; }
 
+            UserManagement.localEmail = email;
+
             Mentor mentor = new Mentor(username, email, password, subjects, "false", grade.SelectedIndex.ToString());
             UserManagement.AddMentorToDB(mentor);
 
             MainWindow m = (MainWindow)Application.Current.MainWindow;
-            m.application.Content = new Students();
+            m.application.Content = new Students(true);
         }
     }
 }

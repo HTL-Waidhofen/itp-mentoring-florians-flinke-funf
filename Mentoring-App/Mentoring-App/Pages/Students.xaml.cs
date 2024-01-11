@@ -20,9 +20,20 @@ namespace Mentoring_App.Pages
     /// </summary>
     public partial class Students : Page
     {
-        public Students()
+        public Students(bool mentor = false)
         {
             InitializeComponent();
+            if(mentor)
+                GetMenu();
+        }
+
+        private void GetMenu()
+        {
+            MenuItem mi = new MenuItem();
+            mi.Header = "Mentor";
+            mi.Visibility = Visibility.Visible;
+            mainmenu.Items.Add(mi);
+            mainmenu.UpdateLayout();
         }
     }
 }

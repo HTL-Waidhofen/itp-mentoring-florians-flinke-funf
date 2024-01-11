@@ -15,6 +15,7 @@ namespace Mentoring_App
         public static List<Student> students = new List<Student>();
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
+        public static string localEmail;
 
         // read
         public static List<Student> LoadStudentsFromDB()
