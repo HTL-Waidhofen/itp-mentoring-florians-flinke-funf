@@ -16,6 +16,10 @@ namespace Mentoring_App
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
         public static string localEmail;
+      
+        public static List<string> subjectList = new List<string>() { "Deutsch", "Mathematik", "Englisch", "Geografie,Geschichte,Politische Bildung", "Naturwissenschaften", "Wirtschaft und Recht",
+                                                            "Netzwerktechnik", "Softwareentwicklung", "Medientechnik", "Computerpraktikum", "IT-Sicherheit", "Informationstechnische Projekte",
+                                                            "Informationssysteme", "Systemtechnik-E", "Systemtechnik", "Cloud Computing und industrielle Technologien"};
 
         
         // read
@@ -252,7 +256,7 @@ namespace Mentoring_App
             }
         }
 
-        public static void UpdateMentor(Appointment appointment)
+        public static void UpdateAppointment(Appointment appointment)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -273,15 +277,36 @@ namespace Mentoring_App
             }
         }
 
-        //List<Student> students1 = LoadStudentsFromDB();
+        public static List<Appointment> GetAppointmentsFromSubject(string subject) 
+        { 
+            List<Appointment> subjectAppointments = new List<Appointment>();
 
-        //public void Test(List<Student> students)
-        //{
-        //    foreach (Student s in students)
-        //    {
-        //        Console.WriteLine(s);
-        //    }
-        //}
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.Mentor.Subjects.Contains(subject))
+                { 
+                    subjectAppointments.Add(appointment);
+                }
+            }
+
+            Appointment helperVar;
+
+            for (int p = 0; p <= subjectAppointments.Count - 2; p++) // mithilfe von BubbleSort zeitlich sortieren
+            {
+                for (int i = 0; i <= subjectAppointments.Count - 2; i++)
+                {
+                    if (subjectAppointments[i].StartTime > subjectAppointments[i + 1].StartTime)
+                    {
+                        helperVar = subjectAppointments[i + 1];
+                        subjectAppointments[i + 1] = subjectAppointments[i];
+                        subjectAppointments[i] = helperVar;
+                    }
+                }
+            }
+
+            return subjectAppointments;
+        }
+
 
         // test valid email
 
