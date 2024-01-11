@@ -285,15 +285,21 @@ namespace Mentoring_App
 
         public static bool IsEmailValid(string email) 
         {
+            foreach(Student s in students)
+            {
+                if (email == s.Email)
+                {
+                    return false;
+                }
+            }
             Regex regex = new Regex(@"(\w{1,50}\.?\w{1,50}@htlwy\.at)$");
             return(regex.IsMatch(email));
-           
         }
 
 
         public static bool IsPasswordValid(string password, string confpassword)
         {
-            if (password == confpassword)
+            if (password == confpassword && password.Length > 4)
             {
                 return true;
             }
@@ -309,7 +315,7 @@ namespace Mentoring_App
         }
         private static string loadConnectionString()
         {
-            return "C:\\Schule3\\ITP3\\itp-mentoring-florians-flinke-funf\\Mentoring-App\\Mentoring-App\\DB\\MentoringDB.db;Version=3;";
+            return "DataSource=\"C:\\Schule3\\ITP3\\itp-mentoring-florians-flinke-funf\\Mentoring-App\\Mentoring-App\\DB\\MentoringDB.db\";Version=3;";
         }
     }
 }
