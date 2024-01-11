@@ -299,7 +299,7 @@ namespace Mentoring_App
 
         public static bool IsPasswordValid(string password, string confpassword)
         {
-            if (password == confpassword && password.Length > 4)
+            if (password == confpassword && password.Length >= 4)
             {
                 return true;
             }
@@ -311,6 +311,7 @@ namespace Mentoring_App
         public static void StudentRegister(string name, string email, string password)
         {
             Student s = new Student(name, email, password);
+            students.Add(s);
             AddStudentToDB(s);
         }
         private static string loadConnectionString()
