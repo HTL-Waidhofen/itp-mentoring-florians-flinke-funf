@@ -15,7 +15,9 @@ namespace Mentoring_App
         public static List<Student> students = new List<Student>();
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
+        public static string localEmail;
 
+        
         // read
         public static List<Student> LoadStudentsFromDB()
         {
@@ -88,25 +90,25 @@ namespace Mentoring_App
 
         public static void FillStudentMentorAppointments()
         {
-            for (int i = 0;i < appointments.Count; i++)
+            for (int i = 0; i < appointments.Count; i++)
             {
                 for (int j = 0; j < students.Count; j++)
                 {
-                    if(students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
+                    if (students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
                 }
             }
-            
-            for (int i = 0;i < appointments.Count; i++)
+
+            for (int i = 0; i < appointments.Count; i++)
             {
                 for (int j = 0; j < mentors.Count; j++)
                 {
-                    if(mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
+                    if (mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
                 }
             }
-        } 
+        }
 
         // create
-        public static void AddStudentToDB(Student student)  
+        public static void AddStudentToDB(Student student)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -160,7 +162,7 @@ namespace Mentoring_App
                 }
             }
         }
-        
+
         // delete
         public static void DeleteStudent(Student student)
         {
@@ -283,7 +285,7 @@ namespace Mentoring_App
 
         // test valid email
 
-        public static bool IsEmailValid(string email) 
+        public static bool IsEmailValid(string email)
         {
             foreach(Student s in students)
             {
@@ -316,7 +318,70 @@ namespace Mentoring_App
         }
         private static string loadConnectionString()
         {
-            return "DataSource=\"C:\\Schule3\\ITP3\\itp-mentoring-florians-flinke-funf\\Mentoring-App\\Mentoring-App\\DB\\MentoringDB.db\";Version=3;";
+            return "DataSource=MentoringDB.db;Version=3;";
+        }
+        public static bool confirmLogin(string usermail, string password)
+        {
+            students = LoadStudentsFromDB();
+            mentors = LoadMentorsFromDB();
+
+            foreach (var s in students)
+            {
+                if (s.Email == usermail && s.Password == password)
+                {
+                    return true;
+                }
+            }
+            foreach (var m in mentors)
+            {
+                if (m.Email == usermail && m.Password == password)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static string GetUserStatus(string email)
+        {
+            students = LoadStudentsFromDB();
+            mentors = LoadMentorsFromDB();
+            foreach (Mentor m in mentors)
+            {
+                if (m.Email == email)
+                    return "mentor";
+            }
+            foreach (Student s in students)
+            {
+                if (s.Email == email)
+                    return "student";
+            }
+            return "not available";
+        }
+        public static List<Mentor> GetApproved()
+        {
+            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
+            List<Mentor> approvedMentors = new List<Mentor>();
+            foreach (Mentor m in myMentors)
+            {
+                if (m.IsApproved)
+                {
+                    approvedMentors.Add(m);
+                }
+            }
+            return approvedMentors;
+        }
+        public static List<Mentor> GetAwaiting()
+        {
+            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
+            List<Mentor> awaitingMentors = new List<Mentor>();
+            foreach (Mentor m in myMentors)
+            {
+                if (m.IsApproved == false)
+                {
+                    awaitingMentors.Add(m);
+                }
+            }
+            return awaitingMentors;
         }
     }
 }
