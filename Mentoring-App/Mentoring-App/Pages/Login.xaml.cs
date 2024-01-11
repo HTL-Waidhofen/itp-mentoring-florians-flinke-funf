@@ -19,10 +19,33 @@ namespace Mentoring_App.Pages
     /// Interaktionslogik für Login.xaml
     /// </summary>
     public partial class Login : Page
-    {
+    {   
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void Register_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new registration());
+        }
+
+        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserManagement.confirmLogin(email_input.Text, password_input.Password))
+            {
+                if (UserManagement.GetUserStatus(email_input.Text) == "student")
+                {
+                    UserManagement.localEmail = email_input.Text;
+                    NavigationService.Navigate(new Students());
+                }
+                else if (UserManagement.GetUserStatus(email_input.Text) == "mentor")
+                {
+                    UserManagement.localEmail = email_input.Text;
+                    NavigationService.Navigate(new MentorPage());
+                }
+
+            }
         }
     }
 }

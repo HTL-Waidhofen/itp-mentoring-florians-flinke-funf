@@ -25,6 +25,10 @@
         <Style TargetType="ListBox">
             <Setter Property="Margin" Value="5"/>
         </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
     </Page.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -37,17 +41,21 @@
         </Menu>
         <StackPanel Width="600">
             <TextBlock>Angefragt</TextBlock>
-            <ListBox Height="250"></ListBox>
-            <ListBox Height="150"></ListBox>
-            <DockPanel HorizontalAlignment="Center">
-                <Button>Annehmen</Button>
-                <Button>Ablehnen</Button>
+            <ListBox Height="250" x:Name="outputMentor" SelectionChanged="outputMentor_SelectionChanged" ></ListBox>
+            <StackPanel>
+                <Label x:Name="outputName"/>
+                <Label x:Name="outputClass"/>
+                <Label x:Name="outputSubjects"/>
+            </StackPanel>
+                <DockPanel HorizontalAlignment="Center">
+                <Button x:Name="button_accept" Click="button_accept_Click">Annehmen</Button>
+                <Button x:Name="button_reject" Click="button_reject_Click">Ablehnen</Button>
             </DockPanel>
         </StackPanel>
         <StackPanel Width="585">
             <TextBlock>Mentoren</TextBlock>
-            <ListBox Height="410"></ListBox>
-            <Button>Mentor entfernen</Button>
+            <ListBox Height="410" x:Name="currentMentors"></ListBox>
+            <Button x:Name="button_delete" Click="button_delete_Click">Mentor entfernen</Button>
         </StackPanel>
     </DockPanel>
 </Page>
