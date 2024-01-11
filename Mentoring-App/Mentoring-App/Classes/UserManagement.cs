@@ -250,7 +250,7 @@ namespace Mentoring_App
             }
         }
 
-        public static void UpdateMentor(Appointment appointment)
+        public static void UpdateAppointment(Appointment appointment)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -285,7 +285,7 @@ namespace Mentoring_App
 
         public static bool IsEmailValid(string email) 
         {
-            Regex regex = new Regex(@"(\w{1,50}.?\w{1,50}@htlwy.at)$");
+            Regex regex = new Regex(@"(\w{1,50}\.?\w{1,50}@htlwy\.at)$");
             return(regex.IsMatch(email));
            
         }
@@ -304,11 +304,12 @@ namespace Mentoring_App
 
         public static void StudentRegister(string name, string email, string password)
         {
-                Student s = new Student(name, email, password);
+            Student s = new Student(name, email, password);
+            AddStudentToDB(s);
         }
         private static string loadConnectionString()
         {
-            return "DataSource=MentoringDB.db;Version=3;";
+            return "C:\\Schule3\\ITP3\\itp-mentoring-florians-flinke-funf\\Mentoring-App\\Mentoring-App\\DB\\MentoringDB.db;Version=3;";
         }
     }
 }

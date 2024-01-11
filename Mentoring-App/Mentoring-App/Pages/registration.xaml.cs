@@ -34,10 +34,12 @@ namespace Mentoring_App.Pages
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
+            if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true && ComboBox_SelectRole.SelectedIndex == 0)
             {
                 UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
             }
+            else
+                MessageBox.Show("Fehler","",MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
