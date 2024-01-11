@@ -15,6 +15,7 @@ namespace Mentoring_App
         public static List<Student> students = new List<Student>();
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
+        public static string localEmail;
 
         
         // read
@@ -89,25 +90,25 @@ namespace Mentoring_App
 
         public static void FillStudentMentorAppointments()
         {
-            for (int i = 0;i < appointments.Count; i++)
+            for (int i = 0; i < appointments.Count; i++)
             {
                 for (int j = 0; j < students.Count; j++)
                 {
-                    if(students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
+                    if (students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
                 }
             }
-            
-            for (int i = 0;i < appointments.Count; i++)
+
+            for (int i = 0; i < appointments.Count; i++)
             {
                 for (int j = 0; j < mentors.Count; j++)
                 {
-                    if(mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
+                    if (mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
                 }
             }
-        } 
+        }
 
         // create
-        public static void AddStudentToDB(Student student)  
+        public static void AddStudentToDB(Student student)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -161,7 +162,7 @@ namespace Mentoring_App
                 }
             }
         }
-        
+
         // delete
         public static void DeleteStudent(Student student)
         {
@@ -284,11 +285,11 @@ namespace Mentoring_App
 
         // test valid email
 
-        public static bool IsEmailValid(string email) 
+        public static bool IsEmailValid(string email)
         {
             Regex regex = new Regex(@"(\w{1,50}.?\w{1,50}@htlwy.at)$");
-            return(regex.IsMatch(email));
-           
+            return (regex.IsMatch(email));
+
         }
 
 
@@ -305,7 +306,7 @@ namespace Mentoring_App
 
         public static void StudentRegister(string name, string email, string password)
         {
-                Student s = new Student(name, email, password);
+            Student s = new Student(name, email, password);
         }
         private static string loadConnectionString()
         {
@@ -347,6 +348,32 @@ namespace Mentoring_App
                     return "student";
             }
             return "not available";
+        }
+        public static List<Mentor> GetApproved()
+        {
+            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
+            List<Mentor> approvedMentors = new List<Mentor>();
+            foreach (Mentor m in myMentors)
+            {
+                if (m.IsApproved)
+                {
+                    approvedMentors.Add(m);
+                }
+            }
+            return approvedMentors;
+        }
+        public static List<Mentor> GetAwaiting()
+        {
+            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
+            List<Mentor> awaitingMentors = new List<Mentor>();
+            foreach (Mentor m in myMentors)
+            {
+                if (m.IsApproved == false)
+                {
+                    awaitingMentors.Add(m);
+                }
+            }
+            return awaitingMentors;
         }
     }
 }
