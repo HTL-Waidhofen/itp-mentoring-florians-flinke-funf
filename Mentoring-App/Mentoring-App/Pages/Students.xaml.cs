@@ -20,15 +20,14 @@ namespace Mentoring_App.Pages
     /// </summary>
     public partial class Students : Page
     {
+        Student localStudent = null;
         public Students()
         {
             InitializeComponent();
 
-            Student localStudent = new Student("","","");
-
             foreach (Student stu in UserManagement.students)
             {
-                if (UserManagement.localUserEmail == stu.Email) localStudent = stu;
+                if (UserManagement.localEmail == stu.Email) localStudent = stu;
             }
 
             UpdateMyAppointments(localStudent);
@@ -54,7 +53,7 @@ namespace Mentoring_App.Pages
             List<Appointment> appointmentsFromSubject = UserManagement.GetAppointmentsFromSubject(subjects_LstBx.SelectedItem.ToString()); // TExtbox ??
             foreach (Appointment appo in appointmentsFromSubject)
             {
-                appointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}");
+                appointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
             }
         }
         public List<string> searchMatchingSubjects(string searchText)
@@ -87,10 +86,14 @@ namespace Mentoring_App.Pages
         }
         private void removeAppointment_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (myAppointments_LstBx.SelectedItem == null) return; // implement Messagebox
+            if (myAppointments_LstBx.SelectedItem == null)
+            {
+                MessageBox.Show("No Appointment selected", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             // Appointment Objekt bekommen anhand von ID 
-            string tempSelectedItem = myAppointments_LstBx.SelectedItem.ToString();
+            string tempSelectedItem = appointments_LstBx.SelectedItem.ToString();
             string IDfromSelected = tempSelectedItem.Substring(tempSelectedItem.IndexOf("ID: ") + 1, tempSelectedItem.Length - tempSelectedItem.IndexOf("ID: "));
 
             Appointment appointmentForDeletion = new Appointment("","","","","","") ;
@@ -108,29 +111,42 @@ namespace Mentoring_App.Pages
 
         private void bookAppointment_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (appointments_LstBx.SelectedItem == null) return; // implement Messagebox
-
-            // in Liste von Mentor und Student einfügen - C# und DB
-            /*
-             * C#:
-             * Student.bookings
-             * Mentor.appointments
-             * appointments.booker
-             * 
-             * usermanagement .
-             * 
-             * zuerst C# dann DB
-             * mit .update---
-            */
-
-            Student localStudent = new Student("", "", "");
-
-            foreach (Student stu in UserManagement.students)
+            if (appointments_LstBx.SelectedItem == null)
             {
-                if (UserManagement.localUserEmail == stu.Email) localStudent = stu;
+                MessageBox.Show("No Appointment selected", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (localStudent == null)
+            {
+                MessageBox.Show("User not found", "User-Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
-            // get mentor, appointent -> db mit update...
+            // Appointment Objekt bekommen anhand von ID 
+            string tempSelectedItem = myAppointments_LstBx.SelectedItem.ToString();
+            string IDfromSelected = tempSelectedItem.Substring(tempSelectedItem.IndexOf("ID: ") + 1, tempSelectedItem.Length - tempSelectedItem.IndexOf("ID: "));
+
+            Appointment? selectedAppointment = null;
+            foreach (Appointment appo in UserManagement.appointments)
+            {
+                if (appo.Id == int.Parse(IDfromSelected)) selectedAppointment = appo;
+            }
+            if (selectedAppointment == null)
+            {
+                MessageBox.Show("Appointment not found", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            UserManagement.UpdateAppointment(selectedAppointment);
+
+            UserManagement.LoadStudentsFromDB();
+            UserManagement.LoadMentorsFromDB();
+            UserManagement.LoadAppoinmentsFromDB();
+            UserManagement.FillStudentMentorAppointments();
+
+            appointments_LstBx.Items.Clear();
+
+            UpdateMyAppointments(localStudent);
         }
     }
 }
