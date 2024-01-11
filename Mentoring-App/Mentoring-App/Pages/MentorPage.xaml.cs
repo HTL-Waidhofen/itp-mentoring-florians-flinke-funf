@@ -51,8 +51,11 @@ namespace Mentoring_App.Pages
         }
         private void LoadMentorAppointments() 
         {
-            List<Appointment> MentorAppointments = UserManagement.GetMentorAppointments();
-            myAppointments.ItemsSource = MentorAppointments;
+            List<Appointment> a = UserManagement.GetMentorAppointments();
+            foreach (Appointment appointment in a)
+            {
+                myAppointments.Items.Add(appointment).ToString();
+            }
         }
     }
 }

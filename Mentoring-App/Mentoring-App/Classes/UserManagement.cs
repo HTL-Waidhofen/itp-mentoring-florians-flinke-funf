@@ -18,7 +18,7 @@ namespace Mentoring_App
         public List<string> subjectList = new List<string>() { "Deutsch", "Mathematik", "Englisch", "Geografie,Geschichte,Politische Bildung", "Naturwissenschaften", "Wirtschaft und Recht",
                                                     "Netzwerktechnik", "Softwareentwicklung", "Medientechnik", "Computerpraktikum", "IT-Sicherheit", "Informationstechnische Projekte",
                                                     "Informationssysteme", "Systemtechnik-E", "Systemtechnik", "Cloud Computing und industrielle Technologien"};
-        public static string localEmail = "";
+        public static string localEmail = "Egon@htlwy.at";
 
         // read
         public static List<Student> LoadStudentsFromDB()
@@ -49,8 +49,8 @@ namespace Mentoring_App
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
-                List<Mentor> mentors = new List<Mentor>();
                 string stm = "SELECT * FROM mentors";
+                int cnt  = 0;
 
                 using (var cmd = new SQLiteCommand(stm, con))
                 {
@@ -58,8 +58,9 @@ namespace Mentoring_App
                     {
                         while (rdr.Read())
                         {
-                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(4), rdr.GetString(5));
+                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetBoolean(4).ToString(), rdr.GetInt32(5).ToString());
                             mentors.Add(mentor);
+                            cnt++;
                         }
                         return mentors;
                     }
@@ -96,7 +97,7 @@ namespace Mentoring_App
             {
                 for (int j = 0; j < students.Count; j++)
                 {
-                    if(students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
+                    if(students[j].Email == appointments[i].Booker) students[j].bookings.Add(appointments[i]);
                 }
             }
             
@@ -104,7 +105,7 @@ namespace Mentoring_App
             {
                 for (int j = 0; j < mentors.Count; j++)
                 {
-                    if(mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
+                    if(mentors[j].Email == appointments[i].Mentor) mentors[j].appointments.Add(appointments[i]);
                 }
             }
         } 
@@ -267,7 +268,7 @@ namespace Mentoring_App
                     cmd.Parameters.AddWithValue("@mentor", appointment.Mentor);
                     cmd.Parameters.AddWithValue("@startEndTime", appointment.StartTime + ";" + appointment.EndTime);
                     cmd.Parameters.AddWithValue("@isBooked", Convert.ToInt32(appointment.IsBooked));
-                    cmd.Parameters.AddWithValue("@isApproved", Convert.ToInt32(appointment.isApproved));
+                    cmd.Parameters.AddWithValue("@isApproved", Convert.ToInt32(appointment.IsApproved));
                     cmd.Parameters.AddWithValue("@id", appointment.Id);
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
@@ -276,11 +277,13 @@ namespace Mentoring_App
         }
         public static List<Appointment> GetMentorAppointments() 
         {
+            LoadStudentsFromDB();
+            LoadMentorsFromDB();
             appointments = LoadAppoinmentsFromDB();
             List<Appointment> MentorAppointments = new List<Appointment>();
             foreach (var appointment in appointments)
             {
-                if(appointment.Mentor.Email == localEmail) 
+                if(appointment.Mentor == localEmail) 
                 {
                     MentorAppointments.Add(appointment);
                 }
