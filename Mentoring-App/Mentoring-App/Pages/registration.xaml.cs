@@ -24,12 +24,6 @@ namespace Mentoring_App.Pages
         public registration()
         {
             InitializeComponent();
-
-            
-
-
-
-
         }
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
@@ -44,18 +38,14 @@ namespace Mentoring_App.Pages
                 }
                 else
                 {
+                    mentorreg.GetUser(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
                     m.application.Content = new mentorreg();
                 }
             }
             else
             {
-                MessageBox.Show("Felder ausfüllen!","Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fehler","Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }
