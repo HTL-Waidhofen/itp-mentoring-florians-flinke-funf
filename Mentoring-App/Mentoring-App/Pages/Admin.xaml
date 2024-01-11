@@ -25,6 +25,10 @@
         <Style TargetType="ListBox">
             <Setter Property="Margin" Value="5"/>
         </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
     </Page.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
