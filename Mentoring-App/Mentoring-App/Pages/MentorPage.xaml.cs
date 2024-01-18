@@ -25,6 +25,7 @@ namespace Mentoring_App.Pages
         {
             InitializeComponent();
             LoadMentorAppointments();
+            LoadMentorSubjects();
         }
 
         private void LoadComboboxes(object sender, RoutedEventArgs e)
@@ -57,5 +58,49 @@ namespace Mentoring_App.Pages
                 myAppointments.Items.Add(appointment).ToString();
             }
         }
+
+        private void AcceptAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            if(myAppointments.SelectedItem != null) 
+            {
+                Appointment selectedAppointment = myAppointments.SelectedItem as Appointment;
+                selectedAppointment.IsApproved = true;
+            }
+        }
+
+        private void DeclineAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            if (myAppointments.SelectedItem != null)
+            {
+                Appointment selectedAppointment = myAppointments.SelectedItem as Appointment;
+                selectedAppointment.IsApproved = false;
+                myAppointments.Items.Remove(selectedAppointment);
+                myAppointments.Items.Refresh();
+            }
+        }
+
+        private void LoadMentorSubjects()
+        {
+            List<Mentor> mentors = UserManagement.LoadMentorsFromDB();
+            foreach(Mentor m in mentors)
+            {
+                if(m.Email == UserManagement.localEmail) 
+                {
+                    if (m != null && !string.IsNullOrEmpty(m.Subjects))
+                    {
+                        string[] subjectArray = m.Subjects.Split(';');
+
+                        subjects.Items.Clear();
+
+                        foreach (string subject in subjectArray)
+                        {
+                            subjects.Items.Add(subject);
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }
