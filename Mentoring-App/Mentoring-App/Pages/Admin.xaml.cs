@@ -65,5 +65,10 @@ namespace Mentoring_App.Pages
             outputClass.Content = "Jhg.: " + m.Grade;
             outputSubjects.Content = "Fächer: " + m.Subjects;
         }
+
+        private void Shutdown_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

@@ -102,6 +102,7 @@ namespace Mentoring_App.Pages
 
             GetMenu();
             GetMenu();
+
         }
 
         private void GetMenu()
@@ -111,6 +112,11 @@ namespace Mentoring_App.Pages
             mi.Visibility = Visibility.Visible;
             mainmenu.Items.Add(mi);
             mainmenu.UpdateLayout();
+        }
+
+        private void Shutdown_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

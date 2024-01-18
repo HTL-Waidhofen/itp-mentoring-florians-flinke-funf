@@ -19,7 +19,7 @@
                 <MenuItem Header="Schüler" />
                 <MenuItem Header="Information" />
                 <Separator />
-                <MenuItem Header="Beenden" />
+                <MenuItem Header="Beenden" Click="Shutdown_Click"  />
             </MenuItem>
         </Menu>
         <StackPanel Orientation="Horizontal" Height="675">
