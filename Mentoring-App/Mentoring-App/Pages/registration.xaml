@@ -1,0 +1,81 @@
+﻿<Page x:Class="Mentoring_App.Pages.registration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mentoring_App.Pages"
+      mc:Ignorable="d" 
+      Title="registration" Background="White" Width="1200" Height="675">
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="Width" Value="300"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="300"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Height" Value="35"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+    </Page.Resources>
+    <StackPanel>
+        <StackPanel>
+            <Button HorizontalAlignment="Left" Background="White" BorderBrush="White" Margin="0" FontSize="15" HorizontalContentAlignment="Left" Padding="5">zurück</Button>
+            <Label HorizontalAlignment="Center" FontSize="60" Height="80" Width="300">Registrieren</Label>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" >
+            <StackPanel Orientation="Vertical">
+                <Label>Benutzername: </Label>
+                <Label>E-Mail Adresse:</Label>
+                <Label>Passwort:</Label>
+                <Label>Passwort bestätigen:</Label>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                    <TextBox x:Name="Name_TextBox"></TextBox>
+                    <TextBox x:Name="Email_TextBox"></TextBox>
+                <PasswordBox x:Name="Password_TextBox"></PasswordBox>
+                <PasswordBox x:Name="PasswordConfirm_TextBox"></PasswordBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Registrieren als</Label>
+                <ComboBox x:Name="StudentOrMentor">
+                    <ComboBoxItem Selector.IsSelected="True">Schüler</ComboBoxItem>
+                    <ComboBoxItem>Mentor</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <Button x:Name="StudentRegisterButton" Click="StudentRegister_Click">Registrieren</Button>
+        </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Page>
