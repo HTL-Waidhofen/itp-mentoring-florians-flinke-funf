@@ -148,7 +148,11 @@ namespace Mentoring_App.Pages
             appointments_LstBx.Items.Clear();
 
             UpdateMyAppointments(localStudent);
+<<<<<<< HEAD
                 GetMenu();
+=======
+            GetMenu();
+>>>>>>> 51f8fbd664a8b545a63ccefb3a45ab495d9b62a7
         }
 
         private void GetMenu()
