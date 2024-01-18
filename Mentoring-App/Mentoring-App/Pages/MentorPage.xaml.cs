@@ -21,7 +21,7 @@ namespace Mentoring_App.Pages
     /// </summary>
     public partial class MentorPage : Page
     {
-        public int ID = 4;
+        public int ID = 5;
         public MentorPage()
         {
             InitializeComponent();
@@ -79,7 +79,7 @@ namespace Mentoring_App.Pages
                 selectedAppointment.IsApproved = false;
                 myAppointments.Items.Remove(selectedAppointment);
                 myAppointments.Items.Refresh();
-                UserManagement.UpdateAppointment(selectedAppointment);
+                UserManagement.DeleteAppointment(selectedAppointment);
             }
         }
 
