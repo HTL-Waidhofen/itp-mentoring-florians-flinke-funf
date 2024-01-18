@@ -36,6 +36,7 @@ namespace Mentoring_App.Pages
         {
             if (UserManagement.confirmLogin(email_input.Text, password_input.Password))
             {
+                UserManagement.localEmail = email_input.Text;
                 if (UserManagement.GetUserStatus(email_input.Text) == "student")
                 {
                     UserManagement.localEmail = email_input.Text;
