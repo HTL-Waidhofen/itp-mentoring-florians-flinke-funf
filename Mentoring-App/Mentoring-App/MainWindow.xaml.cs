@@ -24,7 +24,7 @@ namespace Mentoring_App
         public MainWindow()
         {
             InitializeComponent();
-            application.Content = new registration();
+            application.Content = new Login();
         }
         public void Resize()
         {

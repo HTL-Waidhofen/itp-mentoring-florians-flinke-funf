@@ -343,7 +343,7 @@ namespace Mentoring_App
         }
         private static string loadConnectionString()
         {
-            return "DataSource=MentoringDB.db;Version=3;";
+            return "DataSource=..\\..\\..\\DB\\MentoringDB.db;Version=3;";
         }
         public static bool confirmLogin(string usermail, string password)
         {
