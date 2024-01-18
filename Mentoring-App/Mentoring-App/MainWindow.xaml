@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:Mentoring_App"
         mc:Ignorable="d"
         Title="MainWindow" Height="675" Width="400" ResizeMode="NoResize">
-    <Frame x:Name="application"></Frame>
+    <Frame x:Name="application" NavigationUIVisibility="Hidden"></Frame>
 </Window>

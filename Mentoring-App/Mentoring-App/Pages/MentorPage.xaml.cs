@@ -47,5 +47,10 @@ namespace Mentoring_App.Pages
                 Minutes2ComboBox.Items.Add(i.ToString("00"));
             }
         }
+
+        private void Shutdown_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
