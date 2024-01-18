@@ -148,11 +148,7 @@ namespace Mentoring_App.Pages
             appointments_LstBx.Items.Clear();
 
             UpdateMyAppointments(localStudent);
-<<<<<<< HEAD
-                GetMenu();
-=======
             GetMenu();
->>>>>>> 51f8fbd664a8b545a63ccefb3a45ab495d9b62a7
         }
 
         private void GetMenu()
@@ -162,6 +158,11 @@ namespace Mentoring_App.Pages
             mi.Visibility = Visibility.Visible;
             mainmenu.Items.Add(mi);
             mainmenu.UpdateLayout();
+        }
+
+        private void Shutdown_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

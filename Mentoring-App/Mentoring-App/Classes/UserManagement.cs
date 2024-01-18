@@ -60,7 +60,7 @@ namespace Mentoring_App
                     {
                         while (rdr.Read())
                         {
-                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(4), rdr.GetString(5));
+                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetBoolean(4).ToString(), rdr.GetInt32(5).ToString());
                             mentors.Add(mentor);
                         }
                         return mentors;
