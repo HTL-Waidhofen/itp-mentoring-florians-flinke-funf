@@ -82,7 +82,7 @@ namespace Mentoring_App
                     {
                         while (rdr.Read())
                         {
-                            Appointment appointment = new Appointment(rdr.GetString(0), rdr.GetString(1), rdr.GetInt32(2).ToString(), rdr.GetString(3), rdr.GetInt32(4).ToString(), rdr.GetInt32(5).ToString());
+                            Appointment appointment = new Appointment(rdr.GetString(0), rdr.GetString(1), rdr.GetInt32(2).ToString(), rdr.GetString(3), rdr.GetString(4), rdr.GetBoolean(5).ToString(), rdr.GetBoolean(6).ToString());
                             appointments.Add(appointment);
                         }
                         return appointments;
@@ -146,20 +146,21 @@ namespace Mentoring_App
                 }
             }
         }
-        public static void AddAppointmentToDB(Mentor mentor)
+        public static void AddAppointmentToDB(Appointment appointment)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
 
-                using (var cmd = new SQLiteCommand("INSERT INTO mentors(name, email, password, subjects, isApproved, grade) VALUES(@name, @email, @password, @subjects, @isApproved, @grade)", con))
+                using (var cmd = new SQLiteCommand("INSERT INTO appointments(booker, mentor, id, startTime, endTime, isBooked, isApproved) VALUES(@booker, @mentor, @id, @startTime, @endTime, @isBooked, @isApproved)", con))
                 {
-                    cmd.Parameters.AddWithValue("@name", mentor.Name);
-                    cmd.Parameters.AddWithValue("@email", mentor.Email);
-                    cmd.Parameters.AddWithValue("@password", mentor.Password);
-                    cmd.Parameters.AddWithValue("@subjects", mentor.Subjects);
-                    cmd.Parameters.AddWithValue("@isApproved", Convert.ToInt32(mentor.IsApproved));
-                    cmd.Parameters.AddWithValue("@grade", mentor.Grade);
+                    cmd.Parameters.AddWithValue("@booker", appointment.Booker);
+                    cmd.Parameters.AddWithValue("@mentor", appointment.Mentor);
+                    cmd.Parameters.AddWithValue("@id", appointment.Id);
+                    cmd.Parameters.AddWithValue("@startTime", appointment.StartTime);
+                    cmd.Parameters.AddWithValue("@endTime", appointment.EndTime);
+                    cmd.Parameters.AddWithValue("@isBooked", Convert.ToInt32(appointment.IsBooked));
+                    cmd.Parameters.AddWithValue("@isApproved", Convert.ToInt32(appointment.IsApproved));
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
                 }
@@ -255,7 +256,7 @@ namespace Mentoring_App
             }
         }
 
-        public static void UpdateMentor(Appointment appointment)
+        public static void UpdateAppointment(Appointment appointment)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -263,10 +264,11 @@ namespace Mentoring_App
 
                 using (var cmd = new SQLiteCommand("SELECT * FROM appointments", con))
                 {
-                    cmd.CommandText = "UPDATE appointments SET booker=@booker, mentor=@mentor, startEndTime, isBooked=@isBooked, isApproved=@isApproved WHERE id=@id;";
+                    cmd.CommandText = "UPDATE appointments SET booker=@booker, mentor=@mentor, startTime=@startTime, endTime=@endTime, isBooked=@isBooked, isApproved=@isApproved WHERE id=@id;";
                     cmd.Parameters.AddWithValue("@booker", appointment.Booker);
                     cmd.Parameters.AddWithValue("@mentor", appointment.Mentor);
-                    cmd.Parameters.AddWithValue("@startEndTime", appointment.StartTime + ";" + appointment.EndTime);
+                    cmd.Parameters.AddWithValue("@startTime", appointment.StartTime);
+                    cmd.Parameters.AddWithValue("@endTime", appointment.EndTime);
                     cmd.Parameters.AddWithValue("@isBooked", Convert.ToInt32(appointment.IsBooked));
                     cmd.Parameters.AddWithValue("@isApproved", Convert.ToInt32(appointment.IsApproved));
                     cmd.Parameters.AddWithValue("@id", appointment.Id);

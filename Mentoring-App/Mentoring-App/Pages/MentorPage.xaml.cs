@@ -21,6 +21,7 @@ namespace Mentoring_App.Pages
     /// </summary>
     public partial class MentorPage : Page
     {
+        public int ID = 4;
         public MentorPage()
         {
             InitializeComponent();
@@ -66,6 +67,7 @@ namespace Mentoring_App.Pages
             {
                 Appointment selectedAppointment = myAppointments.SelectedItem as Appointment;
                 selectedAppointment.IsApproved = true;
+                UserManagement.UpdateAppointment(selectedAppointment);
             }
         }
 
@@ -77,6 +79,7 @@ namespace Mentoring_App.Pages
                 selectedAppointment.IsApproved = false;
                 myAppointments.Items.Remove(selectedAppointment);
                 myAppointments.Items.Refresh();
+                UserManagement.UpdateAppointment(selectedAppointment);
             }
         }
 
@@ -130,7 +133,38 @@ namespace Mentoring_App.Pages
 
         private void AddApointment_Click(object sender, RoutedEventArgs e)
         {
+            DateTime selectedDate = AppointmentDatePicker.SelectedDate ?? DateTime.MinValue;
+            selectedDate = DateTime.Parse(selectedDate.ToString("dddd, d M yyyy"));
 
+
+            if (selectedDate != DateTime.MinValue) 
+            {
+                int startHour = int.Parse(HoursComboBox.SelectedItem.ToString());
+                int startMinute = int.Parse(MinutesComboBox.SelectedItem.ToString());
+
+                int endHour = int.Parse(Hours2ComboBox.SelectedItem.ToString());
+                int endMinute = int.Parse(Minutes2ComboBox.SelectedItem.ToString());
+
+                DateTime startDateTime = selectedDate.Add(new TimeSpan(startHour, startMinute, 0));
+                DateTime endDateTime = selectedDate.Add(new TimeSpan(endHour, endMinute, 0));
+
+                Appointment newAppointment = new Appointment(" ", UserManagement.localEmail, ID.ToString(), startDateTime.ToString(), endDateTime.ToString(), "0", "0");
+
+                ID++;
+
+                UserManagement.AddAppointmentToDB(newAppointment);
+                ClearAppointmentForum();
+                myAppointments.Items.Refresh();
+            }
+        }
+
+        private void ClearAppointmentForum()
+        {
+            AppointmentDatePicker.SelectedDate = null;
+            HoursComboBox.SelectedItem = null;
+            MinutesComboBox.SelectedItem = null;
+            Hours2ComboBox.SelectedItem = null;
+            Minutes2ComboBox.SelectedItem = null;
         }
     }
 }

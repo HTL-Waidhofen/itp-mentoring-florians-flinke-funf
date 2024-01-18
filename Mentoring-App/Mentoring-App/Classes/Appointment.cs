@@ -18,13 +18,13 @@ namespace Mentoring_App
         public bool IsBooked { get; set; }
         public bool IsApproved { get; set; }
 
-        public Appointment(string booker, string mentor, string id, string startEndTime, string isBooked, string isApproved)
+        public Appointment(string booker, string mentor, string id, string startTime, string endTime, string isBooked, string isApproved)
         {
             this.Booker = booker;
             this.Mentor = mentor;
             this.Id = int.Parse(id);
-            this.StartTime = DateTime.Parse(startEndTime.Substring(0, startEndTime.IndexOf(';')));
-            this.EndTime = DateTime.Parse(startEndTime.Remove(0, startEndTime.IndexOf(';') + 1));
+            this.StartTime = DateTime.Parse(startTime);
+            this.EndTime = DateTime.Parse(endTime);
             if(isBooked == "0")
                 this.IsBooked = false;
             else if (isBooked == "1")
