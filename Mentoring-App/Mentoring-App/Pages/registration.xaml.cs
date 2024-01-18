@@ -31,7 +31,8 @@ namespace Mentoring_App.Pages
             MainWindow m = (MainWindow)Application.Current.MainWindow;
             if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
             {
-                if(StudentOrMentor.SelectedIndex == 0)
+                UserManagement.localEmail = Email_TextBox.Text;
+                if (StudentOrMentor.SelectedIndex == 0)
                 {
                     m.application.Content = new Students();
                     UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);

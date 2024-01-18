@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Mentoring_App.Pages;
+using System.Windows.Controls;
 
 namespace Mentoring_App
 {
@@ -60,7 +61,7 @@ namespace Mentoring_App
                     {
                         while (rdr.Read())
                         {
-                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(4), rdr.GetString(5));
+                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetBoolean(4).ToString(), rdr.GetInt32(5).ToString());
                             mentors.Add(mentor);
                         }
                         return mentors;
@@ -83,7 +84,7 @@ namespace Mentoring_App
                     {
                         while (rdr.Read())
                         {
-                            Appointment appointment = new Appointment(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(4), rdr.GetString(5));
+                            Appointment appointment = new Appointment(rdr.GetString(0), rdr.GetString(1), rdr.GetInt32(2).ToString(), rdr.GetString(3), rdr.GetBoolean(4).ToString(), rdr.GetBoolean(5).ToString());
                             appointments.Add(appointment);
                         }
                         return appointments;
@@ -407,6 +408,72 @@ namespace Mentoring_App
                 }
             }
             return awaitingMentors;
+        }
+
+        // methods for students page
+
+        public static Student GetLocalStudent(string localEmail)
+        {
+            foreach (Student student in students)
+            {
+                if(student.Email == localEmail)
+                {
+                    return student;
+                }
+            }
+
+            return null;
+        }
+
+        public static void UpdateMyAppointmentsStudent(ListBox myAppointmentsListBox)
+        {
+            //METHODE
+            LoadStudentsFromDB();
+            LoadMentorsFromDB();
+            LoadAppoinmentsFromDB();
+            foreach (Appointment appo in GetLocalStudent(localEmail).bookings)
+            {
+                myAppointmentsListBox.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
+            }
+        }
+        
+        public static void bookAppointmentStudent(ListBox appointmentsListBox, ListBox myAppointmentListBox)
+        {
+            if (appointmentsListBox.SelectedItem == null)
+            {
+                MessageBox.Show("No Appointment selected", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (GetLocalStudent(localEmail) == null)
+            {
+                MessageBox.Show("User not found", "User-Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Appointment Objekt bekommen anhand von ID 
+            string tempSelectedItem = appointmentsListBox.SelectedItem.ToString();
+            string IDfromSelected = tempSelectedItem.Substring(tempSelectedItem.IndexOf("ID: ") + 1, tempSelectedItem.Length - tempSelectedItem.IndexOf("ID: "));
+
+            Appointment? selectedAppointment = null;
+            foreach (Appointment appo in appointments)
+            {
+                if (appo.Id == int.Parse(IDfromSelected)) selectedAppointment = appo;
+            }
+            if (selectedAppointment == null)
+            {
+                MessageBox.Show("Appointment not found", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            UpdateAppointment(selectedAppointment);
+            LoadStudentsFromDB();
+            LoadMentorsFromDB();
+            LoadAppoinmentsFromDB();
+            FillStudentMentorAppointments();
+
+            appointmentsListBox.Items.Clear();
+
+            UpdateMyAppointmentsStudent(myAppointmentListBox);
         }
     }
 }

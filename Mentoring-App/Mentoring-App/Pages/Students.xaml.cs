@@ -20,18 +20,11 @@ namespace Mentoring_App.Pages
     /// </summary>
     public partial class Students : Page
     {
-
-        Student localStudent = null;
         public Students(bool mentor = false)
         {
             InitializeComponent();
 
-            foreach (Student stu in UserManagement.students)
-            {
-                if (UserManagement.localEmail == stu.Email) localStudent = stu;
-            }
-
-            UpdateMyAppointments(localStudent);
+            UserManagement.UpdateMyAppointmentsStudent(myAppointments_LstBx);
 
             FillWithAllSubjects();
         }
@@ -45,8 +38,8 @@ namespace Mentoring_App.Pages
             foreach (string subject in searchMatchingSubjects(subjectSearch.Text))
             {
                 subjects_LstBx.Items.Add(subject);
-            }
-        }
+}
+        }            
         private void subjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             appointments_LstBx.Items.Clear();
@@ -70,13 +63,6 @@ namespace Mentoring_App.Pages
             }
 
             return matchList;
-        }
-        public void UpdateMyAppointments(Student localStudent)
-        {
-            foreach (Appointment appo in localStudent.bookings)
-            {
-                myAppointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
-            }
         }
         public void FillWithAllSubjects()
         {
@@ -112,47 +98,10 @@ namespace Mentoring_App.Pages
 
         private void bookAppointment_Btn_Click(object sender, RoutedEventArgs e)
         {
-            if (appointments_LstBx.SelectedItem == null)
-            {
-                MessageBox.Show("No Appointment selected", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (localStudent == null)
-            {
-                MessageBox.Show("User not found", "User-Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            UserManagement.bookAppointmentStudent(appointments_LstBx, myAppointments_LstBx);
 
-            // Appointment Objekt bekommen anhand von ID 
-            string tempSelectedItem = myAppointments_LstBx.SelectedItem.ToString();
-            string IDfromSelected = tempSelectedItem.Substring(tempSelectedItem.IndexOf("ID: ") + 1, tempSelectedItem.Length - tempSelectedItem.IndexOf("ID: "));
-
-            Appointment? selectedAppointment = null;
-            foreach (Appointment appo in UserManagement.appointments)
-            {
-                if (appo.Id == int.Parse(IDfromSelected)) selectedAppointment = appo;
-            }
-            if (selectedAppointment == null)
-            {
-                MessageBox.Show("Appointment not found", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            UserManagement.UpdateAppointment(selectedAppointment);
-
-            UserManagement.LoadStudentsFromDB();
-            UserManagement.LoadMentorsFromDB();
-            UserManagement.LoadAppoinmentsFromDB();
-            UserManagement.FillStudentMentorAppointments();
-
-            appointments_LstBx.Items.Clear();
-
-            UpdateMyAppointments(localStudent);
-<<<<<<< HEAD
-                GetMenu();
-=======
             GetMenu();
->>>>>>> 51f8fbd664a8b545a63ccefb3a45ab495d9b62a7
+            GetMenu();
         }
 
         private void GetMenu()
