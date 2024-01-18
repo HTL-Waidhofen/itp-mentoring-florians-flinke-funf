@@ -35,10 +35,10 @@
                 </ListBox>
                 
                 <StackPanel Orientation="Horizontal" Height="100">
-                    <ComboBox Margin="20,10,0,0" Height="30" Width="250"></ComboBox>
+                    <ComboBox x:Name="subjectComboBox" Margin="20,10,0,0" Height="30" Width="250"></ComboBox>
                     <StackPanel Orientation="Vertical" Width="270">
-                        <Button Margin="10,25,0,0" Height="25">Fach hinzufügen</Button>
-                        <Button Margin="10,15,0,0" Height="25">Fach entfernen</Button>
+                        <Button Margin="10,25,0,0" Height="25" Click="AddSubject_Click">Fach hinzufügen</Button>
+                        <Button Margin="10,15,0,0" Height="25" Click="DeleteSubject_Click">Fach entfernen</Button>
                     </StackPanel>
                 </StackPanel>
 
@@ -60,7 +60,7 @@
                     <TextBlock Margin="10,20,0,0">min</TextBlock>
                 </StackPanel>
 
-                <Button Height="30" Margin="100,30,100,0">Termin hinzufügen</Button>
+                <Button Height="30" Margin="100,30,100,0" Click="AddApointment_Click">Termin hinzufügen</Button>
              </StackPanel>
             <Border BorderBrush="LightGray" BorderThickness="1" Margin="50,20,0,70"/>
             <StackPanel Orientation="Vertical" Width="400" Margin="100,0,0,0">

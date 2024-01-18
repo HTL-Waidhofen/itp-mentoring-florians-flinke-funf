@@ -20,7 +20,6 @@ namespace Mentoring_App
 
         public Appointment(string booker, string mentor, string id, string startEndTime, string isBooked, string isApproved)
         {
-            
             this.Booker = booker;
             this.Mentor = mentor;
             this.Id = int.Parse(id);

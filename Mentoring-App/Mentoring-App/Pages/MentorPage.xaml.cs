@@ -26,6 +26,7 @@ namespace Mentoring_App.Pages
             InitializeComponent();
             LoadMentorAppointments();
             LoadMentorSubjects();
+            LoadSubjectsInComboBox();
         }
 
         private void LoadComboboxes(object sender, RoutedEventArgs e)
@@ -101,6 +102,35 @@ namespace Mentoring_App.Pages
             }
         }
 
+        private void LoadSubjectsInComboBox()
+        {
+            List<string> allSubjects = UserManagement.subjectList;
+            foreach (string subject in allSubjects) 
+            {
+                subjectComboBox.Items.Add(subject);
+            }
+        }
 
+        private void AddSubject_Click(object sender, RoutedEventArgs e)
+        {
+            if(subjectComboBox.SelectedItem != null)
+            {
+                string selectedSubject = subjectComboBox.SelectedItem as string;
+                subjects.Items.Add(selectedSubject);
+            }
+        }
+
+        private void DeleteSubject_Click(object sender, RoutedEventArgs e)
+        {
+            if(subjects.SelectedItem != null) 
+            {
+                subjects.Items.Remove(subjects.SelectedItem);
+            }
+        }
+
+        private void AddApointment_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
