@@ -166,5 +166,10 @@ namespace Mentoring_App.Pages
             Hours2ComboBox.SelectedItem = null;
             Minutes2ComboBox.SelectedItem = null;
         }
+
+        private void Shutdown_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Mentoring_App.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="675" d:DesignWidth="400" Background="#F4F6F4"
+      Width="400" Height="675" Background="#F4F6F4"
       Title="Login">
     <StackPanel>
         <StackPanel Margin="20">

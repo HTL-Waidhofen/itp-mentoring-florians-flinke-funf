@@ -24,25 +24,29 @@ namespace Mentoring_App.Pages
         public registration()
         {
             InitializeComponent();
-
-            
-
-
-
-
         }
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow m = (MainWindow)Application.Current.MainWindow;
             if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
             {
-                UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                UserManagement.localEmail = Email_TextBox.Text;
+                if (StudentOrMentor.SelectedIndex == 0)
+                {
+                    m.application.Content = new Students();
+                    UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                }
+                else
+                {
+                    mentorreg.GetUser(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                    m.application.Content = new mentorreg();
+                }
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
+            else
+            {
+                MessageBox.Show("Fehler","Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
