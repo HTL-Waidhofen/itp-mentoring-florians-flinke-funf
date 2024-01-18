@@ -19,7 +19,7 @@ namespace Mentoring_App.Pages
     /// Interaktionslogik für Login.xaml
     /// </summary>
     public partial class Login : Page
-    {
+    {   
         public Login()
         {
             InitializeComponent();
@@ -38,12 +38,15 @@ namespace Mentoring_App.Pages
             {
                 if (UserManagement.GetUserStatus(email_input.Text) == "student")
                 {
+                    UserManagement.localEmail = email_input.Text;
                     NavigationService.Navigate(new Students());
                 }
                 else if (UserManagement.GetUserStatus(email_input.Text) == "mentor")
                 {
+                    UserManagement.localEmail = email_input.Text;
                     NavigationService.Navigate(new MentorPage());
                 }
+
             }
         }
     }

@@ -16,7 +16,12 @@ namespace Mentoring_App
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
         public static string localEmail;
+      
+        public static List<string> subjectList = new List<string>() { "Deutsch", "Mathematik", "Englisch", "Geografie,Geschichte,Politische Bildung", "Naturwissenschaften", "Wirtschaft und Recht",
+                                                            "Netzwerktechnik", "Softwareentwicklung", "Medientechnik", "Computerpraktikum", "IT-Sicherheit", "Informationstechnische Projekte",
+                                                            "Informationssysteme", "Systemtechnik-E", "Systemtechnik", "Cloud Computing und industrielle Technologien"};
 
+        
         // read
         public static List<Student> LoadStudentsFromDB()
         {
@@ -89,25 +94,25 @@ namespace Mentoring_App
 
         public static void FillStudentMentorAppointments()
         {
-            for (int i = 0;i < appointments.Count; i++)
+            for (int i = 0; i < appointments.Count; i++)
             {
                 for (int j = 0; j < students.Count; j++)
                 {
-                    if(students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
+                    if (students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
                 }
             }
-            
-            for (int i = 0;i < appointments.Count; i++)
+
+            for (int i = 0; i < appointments.Count; i++)
             {
                 for (int j = 0; j < mentors.Count; j++)
                 {
-                    if(mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
+                    if (mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
                 }
             }
-        } 
+        }
 
         // create
-        public static void AddStudentToDB(Student student)  
+        public static void AddStudentToDB(Student student)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -161,7 +166,7 @@ namespace Mentoring_App
                 }
             }
         }
-        
+
         // delete
         public static void DeleteStudent(Student student)
         {
@@ -251,7 +256,7 @@ namespace Mentoring_App
             }
         }
 
-        public static void UpdateMentor(Appointment appointment)
+        public static void UpdateAppointment(Appointment appointment)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -272,29 +277,56 @@ namespace Mentoring_App
             }
         }
 
-        List<Student> students1 = LoadStudentsFromDB();
+        public static List<Appointment> GetAppointmentsFromSubject(string subject) 
+        { 
+            List<Appointment> subjectAppointments = new List<Appointment>();
 
-        public void Test(List<Student> students)
-        {
-            foreach (Student s in students)
+            foreach (Appointment appointment in appointments)
             {
-                Console.WriteLine(s);
+                if (appointment.Mentor.Subjects.Contains(subject))
+                { 
+                    subjectAppointments.Add(appointment);
+                }
             }
+
+            Appointment helperVar;
+
+            for (int p = 0; p <= subjectAppointments.Count - 2; p++) // mithilfe von BubbleSort zeitlich sortieren
+            {
+                for (int i = 0; i <= subjectAppointments.Count - 2; i++)
+                {
+                    if (subjectAppointments[i].StartTime > subjectAppointments[i + 1].StartTime)
+                    {
+                        helperVar = subjectAppointments[i + 1];
+                        subjectAppointments[i + 1] = subjectAppointments[i];
+                        subjectAppointments[i] = helperVar;
+                    }
+                }
+            }
+
+            return subjectAppointments;
         }
+
 
         // test valid email
 
-        public static bool IsEmailValid(string email) 
+        public static bool IsEmailValid(string email)
         {
-            Regex regex = new Regex(@"(\w{1,50}.?\w{1,50}@htlwy.at)$");
+            foreach(Student s in students)
+            {
+                if (email == s.Email)
+                {
+                    return false;
+                }
+            }
+            Regex regex = new Regex(@"(\w{1,50}\.?\w{1,50}@htlwy\.at)$");
             return(regex.IsMatch(email));
-           
         }
 
 
         public static bool IsPasswordValid(string password, string confpassword)
         {
-            if (password == confpassword)
+            if (password == confpassword && password.Length >= 4)
             {
                 return true;
             }
@@ -305,7 +337,9 @@ namespace Mentoring_App
 
         public static void StudentRegister(string name, string email, string password)
         {
-                Student s = new Student(name, email, password);
+            Student s = new Student(name, email, password);
+            students.Add(s);
+            AddStudentToDB(s);
         }
         private static string loadConnectionString()
         {
@@ -347,6 +381,32 @@ namespace Mentoring_App
                     return "student";
             }
             return "not available";
+        }
+        public static List<Mentor> GetApproved()
+        {
+            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
+            List<Mentor> approvedMentors = new List<Mentor>();
+            foreach (Mentor m in myMentors)
+            {
+                if (m.IsApproved)
+                {
+                    approvedMentors.Add(m);
+                }
+            }
+            return approvedMentors;
+        }
+        public static List<Mentor> GetAwaiting()
+        {
+            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
+            List<Mentor> awaitingMentors = new List<Mentor>();
+            foreach (Mentor m in myMentors)
+            {
+                if (m.IsApproved == false)
+                {
+                    awaitingMentors.Add(m);
+                }
+            }
+            return awaitingMentors;
         }
     }
 }
