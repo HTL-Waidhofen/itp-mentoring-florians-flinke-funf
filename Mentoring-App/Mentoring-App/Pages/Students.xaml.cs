@@ -20,8 +20,9 @@ namespace Mentoring_App.Pages
     /// </summary>
     public partial class Students : Page
     {
+        
         Student localStudent = null;
-        public Students()
+        public Students(bool mentor = false)
         {
             InitializeComponent();
 
@@ -147,6 +148,17 @@ namespace Mentoring_App.Pages
             appointments_LstBx.Items.Clear();
 
             UpdateMyAppointments(localStudent);
+            if(mentor)
+                GetMenu();
+        }
+
+        private void GetMenu()
+        {
+            MenuItem mi = new MenuItem();
+            mi.Header = "Mentor";
+            mi.Visibility = Visibility.Visible;
+            mainmenu.Items.Add(mi);
+            mainmenu.UpdateLayout();
         }
     }
 }

@@ -26,10 +26,10 @@ namespace Mentoring_App
             InitializeComponent();
             application.Content = new registration();
         }
-
-        private void Window_SourceInitialized(object sender, EventArgs e)
+        public void Resize()
         {
-            
+            Height = 675;
+            Width = 1200;
         }
     }
 }

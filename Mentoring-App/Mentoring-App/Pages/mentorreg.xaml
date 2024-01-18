@@ -33,7 +33,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="10">
             <Label FontFamily="CalibriLight" FontSize="20">Jahrgang auswählen:</Label>
-            <ComboBox FontFamily="CalibriLight" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150">
+            <ComboBox x:Name="grade" FontFamily="CalibriLight" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150">
                 <ComboBoxItem IsSelected="True">1. Jahrgang</ComboBoxItem>
                 <ComboBoxItem>2. Jahrgang</ComboBoxItem>
                 <ComboBoxItem>3. Jahrgang</ComboBoxItem>
@@ -45,37 +45,37 @@
             <GroupBox Header="Haupt-/Nebenfächer">
                 <StackPanel Orientation="Horizontal" >
                     <StackPanel Orientation="Vertical" Margin="10,10,10,10">
-                        <CheckBox>Deutsch</CheckBox>
-                        <CheckBox >Mathematik</CheckBox>
-                        <CheckBox>Englisch</CheckBox>
+                        <CheckBox x:Name="german">Deutsch</CheckBox>
+                        <CheckBox x:Name="maths">Mathematik</CheckBox>
+                        <CheckBox x:Name="english">Englisch</CheckBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="10,10,10,10">
-                        <CheckBox>GGP</CheckBox>
-                        <CheckBox>Naturwissenschaften</CheckBox>
-                        <CheckBox>Wirtschaft/Recht</CheckBox>
+                        <CheckBox x:Name="geography">GGP</CheckBox>
+                        <CheckBox x:Name="chemistry">Naturwissenschaften</CheckBox>
+                        <CheckBox x:Name="law">Wirtschaft/Recht</CheckBox>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="IT-Fächer">
                 <DockPanel HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical" Margin="10,10,10,10">
-                        <CheckBox>Netzwerktechnik</CheckBox>
-                        <CheckBox>Softwareentwicklung</CheckBox>
-                        <CheckBox>Medientechnik</CheckBox>
+                        <CheckBox x:Name="networkEngineering">Netzwerktechnik</CheckBox>
+                        <CheckBox x:Name="softwareDevelopment">Softwareentwicklung</CheckBox>
+                        <CheckBox x:Name="mediaTechnology">Medientechnik</CheckBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="10,10,10,10">
-                        <CheckBox>Computerpraktikum</CheckBox>
-                        <CheckBox>IT-Sicherheit</CheckBox>
-                        <CheckBox>Informationstechnische Projekte</CheckBox>
+                        <CheckBox x:Name="workshop">Computerpraktikum</CheckBox>
+                        <CheckBox x:Name="itSecurity">IT-Sicherheit</CheckBox>
+                        <CheckBox x:Name="itProjects">Informationstechnische Projekte</CheckBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="10,10,10,10">
-                        <CheckBox>Informationssysteme</CheckBox>
-                        <CheckBox>Systemtechnik-E</CheckBox>
-                        <CheckBox>Systemtechnik</CheckBox>
+                        <CheckBox x:Name="databases">Informationssysteme</CheckBox>
+                        <CheckBox x:Name="electricalEngineering">Systemtechnik-E</CheckBox>
+                        <CheckBox x:Name="systemTechnology">Systemtechnik</CheckBox>
                     </StackPanel>
                 </DockPanel>
             </GroupBox>
         </StackPanel>
-        <Button>Registrieren</Button>
+        <Button Click="mentorreg_Click">Registrieren</Button>
     </StackPanel>
 </Page>
