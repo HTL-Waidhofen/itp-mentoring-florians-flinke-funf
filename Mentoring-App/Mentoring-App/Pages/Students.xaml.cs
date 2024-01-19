@@ -38,7 +38,7 @@ namespace Mentoring_App.Pages
             foreach (string subject in searchMatchingSubjects(subjectSearch.Text))
             {
                 subjects_LstBx.Items.Add(subject);
-}
+            }
         }            
         private void subjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -47,7 +47,10 @@ namespace Mentoring_App.Pages
             List<Appointment> appointmentsFromSubject = UserManagement.GetAppointmentsFromSubject(subjects_LstBx.SelectedItem.ToString()); // TExtbox ??
             foreach (Appointment appo in appointmentsFromSubject)
             {
-                appointments_LstBx.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
+                foreach(Mentor m in UserManagement.mentors)    
+                {
+                    appointments_LstBx.Items.Add($"Mentor: {m.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.IsApproved}, ID: {appo.Id}");
+                }
             }
         }
         public List<string> searchMatchingSubjects(string searchText)
@@ -83,7 +86,7 @@ namespace Mentoring_App.Pages
             string tempSelectedItem = appointments_LstBx.SelectedItem.ToString();
             string IDfromSelected = tempSelectedItem.Substring(tempSelectedItem.IndexOf("ID: ") + 1, tempSelectedItem.Length - tempSelectedItem.IndexOf("ID: "));
 
-            Appointment appointmentForDeletion = new Appointment("","","","","","") ;
+            Appointment appointmentForDeletion = new Appointment("","","","","","","") ;
             foreach (Appointment appo in UserManagement.appointments)
             {
                 if (appo.Id == int.Parse(IDfromSelected))

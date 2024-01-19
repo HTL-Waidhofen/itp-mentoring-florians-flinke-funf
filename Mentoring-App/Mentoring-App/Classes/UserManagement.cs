@@ -16,7 +16,7 @@ namespace Mentoring_App
         public static List<Student> students = new List<Student>();
         public static List<Mentor> mentors = new List<Mentor>();
         public static List<Appointment> appointments = new List<Appointment>();
-        public static string localEmail;
+        public static string localEmail = "";
       
         public static List<string> subjectList = new List<string>() { "Deutsch", "Mathematik", "Englisch", "Geografie,Geschichte,Politische Bildung", "Naturwissenschaften", "Wirtschaft und Recht",
                                                             "Netzwerktechnik", "Softwareentwicklung", "Medientechnik", "Computerpraktikum", "IT-Sicherheit", "Informationstechnische Projekte",
@@ -76,7 +76,7 @@ namespace Mentoring_App
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
-                List<Appointment> appointments = new List<Appointment>();
+               
                 string stm = "SELECT * FROM appointments";
 
                 using (var cmd = new SQLiteCommand(stm, con))
@@ -100,7 +100,7 @@ namespace Mentoring_App
             {
                 for (int j = 0; j < students.Count; j++)
                 {
-                    if (students[j].Email == appointments[i].Booker.Email) students[j].bookings.Add(appointments[i]);
+                    if (students[j].Email == appointments[i].Booker) students[j].bookings.Add(appointments[i]);
                 }
             }
 
@@ -108,7 +108,7 @@ namespace Mentoring_App
             {
                 for (int j = 0; j < mentors.Count; j++)
                 {
-                    if (mentors[j].Email == appointments[i].Mentor.Email) mentors[j].appointments.Add(appointments[i]);
+                    if (mentors[j].Email == appointments[i].Mentor) mentors[j].appointments.Add(appointments[i]);
                 }
             }
         }
@@ -299,12 +299,19 @@ namespace Mentoring_App
         public static List<Appointment> GetAppointmentsFromSubject(string subject) 
         { 
             List<Appointment> subjectAppointments = new List<Appointment>();
+            LoadAppoinmentsFromDB();
 
-            foreach (Appointment appointment in appointments)
+            foreach (Mentor mentor in mentors)
             {
-                if (appointment.Mentor.Subjects.Contains(subject))
-                { 
-                    subjectAppointments.Add(appointment);
+                foreach (Appointment appointment in appointments)
+                {
+                    if (mentor.Subjects.Contains(subject))
+                    { 
+                        if(mentor.Email == appointment.Mentor) 
+                        {
+                            subjectAppointments.Add(appointment);
+                        }
+                    }
                 }
             }
 
@@ -362,7 +369,7 @@ namespace Mentoring_App
         }
         private static string loadConnectionString()
         {
-            return "DataSource=..\\..\\..\\DB\\MentoringDB.db;Version=3;";
+            return "DataSource=..\\..\\..\\bin\\Debug\\net6.0-windows\\MentoringDB.db;Version=3;";
         }
         public static bool confirmLogin(string usermail, string password)
         {
@@ -451,7 +458,10 @@ namespace Mentoring_App
             LoadAppoinmentsFromDB();
             foreach (Appointment appo in GetLocalStudent(localEmail).bookings)
             {
-                myAppointmentsListBox.Items.Add($"Mentor: {appo.Mentor.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.isApproved}, ID: {appo.Id}");
+                foreach(Mentor m in mentors) 
+                {
+                    myAppointmentsListBox.Items.Add($"Mentor: {m.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.IsApproved}, ID: {appo.Id}");
+                }
             }
         }
         
