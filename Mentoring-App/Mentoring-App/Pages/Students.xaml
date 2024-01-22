@@ -36,7 +36,7 @@
 
                 <Button x:Name="bookAppointment_Btn" Height="30" Margin="100,40,100,0" Click="bookAppointment_Btn_Click">Termin buchen</Button>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Width="400" Margin="100,0,0,0">
+            <StackPanel Orientation="Vertical" Width="450" Margin="100,0,0,0">
                 <TextBlock Margin="20,10,0,0">Meine Termine</TextBlock>
                 <ListBox x:Name="myAppointments_LstBx" Margin="20,10,0,0" Height="400">
                 </ListBox>

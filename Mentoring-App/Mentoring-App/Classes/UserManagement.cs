@@ -314,37 +314,24 @@ namespace Mentoring_App
             List<Appointment> subjectAppointments = new List<Appointment>();
             LoadAppoinmentsFromDB();
 
-            foreach (Mentor mentor in mentors)
+            foreach (Appointment appointment in appointments)
             {
-                if (mentor.Subjects.Contains(subject))
+                // Überprüfen, ob das Fach des Mentors mit dem gesuchten Fach übereinstimmt
+                Mentor mentor = mentors.FirstOrDefault(m => m.Email == appointment.Mentor && m.Subjects.Contains(subject));
+
+                // Hinzufügen, wenn Mentor gefunden und der Termin noch nicht in der Liste ist
+                if (mentor != null && !subjectAppointments.Any(appo => appo.Id == appointment.Id))
                 {
-                    foreach (Appointment appointment in appointments)
-                    {
-                        if (mentor.Email == appointment.Mentor && !subjectAppointments.Contains(appointment))
-                        {
-                            subjectAppointments.Add(appointment);
-                        }
-                    }
+                    subjectAppointments.Add(appointment);
                 }
             }
 
-            Appointment helperVar;
-
-            for (int p = 0; p <= subjectAppointments.Count - 2; p++) // mithilfe von BubbleSort zeitlich sortieren
-            {
-                for (int i = 0; i <= subjectAppointments.Count - 2; i++)
-                {
-                    if (subjectAppointments[i].StartTime > subjectAppointments[i + 1].StartTime)
-                    {
-                        helperVar = subjectAppointments[i + 1];
-                        subjectAppointments[i + 1] = subjectAppointments[i];
-                        subjectAppointments[i] = helperVar;
-                    }
-                }
-            }
+            // Sortieren Sie die Termine nach der Startzeit
+            subjectAppointments = subjectAppointments.OrderBy(appo => appo.StartTime).ToList();
 
             return subjectAppointments;
         }
+
 
 
         // test valid email
@@ -469,11 +456,16 @@ namespace Mentoring_App
             LoadStudentsFromDB();
             LoadMentorsFromDB();
             LoadAppoinmentsFromDB();
+
+            myAppointmentsListBox.Items.Clear();
+
             foreach (Appointment appo in GetLocalStudent(localEmail).bookings)
             {
-                foreach (Mentor m in mentors)
+                Mentor mentor = mentors.FirstOrDefault(m => m.Email == appo.Mentor);
+
+                if (mentor != null)
                 {
-                    myAppointmentsListBox.Items.Add($"Mentor: {m.Name}, Von: {appo.StartTime} - {appo.EndTime.ToString("HH:mm")}, Angenommen: {(appo.IsApproved ? "Ja" : "Nein")}, ID: {appo.Id}");
+                    myAppointmentsListBox.Items.Add($"Mentor: {mentor.Name}, Von: {appo.StartTime} - {appo.EndTime.ToString("HH:mm")}, Angenommen: {(appo.IsApproved ? "Ja" : "Nein")}, ID: {appo.Id}");
                 }
             }
         }
