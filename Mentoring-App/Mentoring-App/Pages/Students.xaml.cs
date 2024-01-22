@@ -49,7 +49,7 @@ namespace Mentoring_App.Pages
             {
                 foreach(Mentor m in UserManagement.mentors)    
                 {
-                    appointments_LstBx.Items.Add($"Mentor: {m.Name}, StartTime: {appo.StartTime}, IsApproved: {appo.IsApproved}, ID: {appo.Id}");
+                    appointments_LstBx.Items.Add($"Mentor: {m.Name}, Von: {appo.StartTime} - {appo.EndTime.ToString("HH:mm")}, Angenommen: {(appo.IsApproved ? "Ja" : "Nein")}, ID: {appo.Id}");
                 }
             }
         }
