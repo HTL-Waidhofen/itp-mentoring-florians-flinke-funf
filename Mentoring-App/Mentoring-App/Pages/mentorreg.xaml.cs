@@ -25,6 +25,7 @@ namespace Mentoring_App.Pages
         public static string username;
         public static string email;
         public static string password;
+
         public mentorreg()
         {
             InitializeComponent();
@@ -39,29 +40,33 @@ namespace Mentoring_App.Pages
         private void mentorreg_Click(object sender, RoutedEventArgs e)
         {
             string subjects = "";
-            if (german.IsChecked == true) { subjects += "german,"; }
-            if (maths.IsChecked == true) { subjects += "maths,"; }
-            if (english.IsChecked == true) { subjects += "english,"; }
-            if (geography.IsChecked == true) { subjects += "geography,"; }
-            if (chemistry.IsChecked == true) { subjects += "chemistry,"; }
-            if (law.IsChecked == true) { subjects += "law,"; }
-            if (networkEngineering.IsChecked == true) { subjects += "networkEngineering,"; }
-            if (softwareDevelopment.IsChecked == true) { subjects += "softwareDevelopment,"; }
-            if (mediaTechnology.IsChecked == true) { subjects += "mediaTechnology,"; }
-            if (workshop.IsChecked == true) { subjects += "workshop,"; }
-            if (itSecurity.IsChecked == true) { subjects += "itSecurity,"; }
-            if (itProjects.IsChecked == true) { subjects += "itProjects,"; }
-            if (databases.IsChecked == true) { subjects += "databases,"; }
-            if (electricalEngineering.IsChecked == true) { subjects += "electricalEngineering,"; }
-            if (systemTechnology.IsChecked == true) { subjects += "systemTechnology,"; }
+            if (german.IsChecked == true) { subjects += "Deutsch;"; }
+            if (maths.IsChecked == true) { subjects += "Mathematik;"; }
+            if (english.IsChecked == true) { subjects += "Englisch;"; }
+            if (geography.IsChecked == true) { subjects += "Geografie,Geschichte,Politische Bildung;"; }
+            if (chemistry.IsChecked == true) { subjects += "Naturwissenschaften;"; }
+            if (law.IsChecked == true) { subjects += "Wirtschaft und Recht;"; }
+            if (networkEngineering.IsChecked == true) { subjects += "Netzwerktechnik;"; }
+            if (softwareDevelopment.IsChecked == true) { subjects += "Softwareentwicklung;"; }
+            if (mediaTechnology.IsChecked == true) { subjects += "Medientechnik;"; }
+            if (workshop.IsChecked == true) { subjects += "Computerpraktikum;"; }
+            if (itSecurity.IsChecked == true) { subjects += "IT-Sicherheit;"; }
+            if (itProjects.IsChecked == true) { subjects += "Informationstechnische Projekte;"; }
+            if (databases.IsChecked == true) { subjects += "Informationssysteme;"; }
+            if (electricalEngineering.IsChecked == true) { subjects += "Systemtechnik-E;"; }
+            if (systemTechnology.IsChecked == true) { subjects += "Systemtechnik;"; }
 
-            UserManagement.localEmail = email;
+            if (subjects == "")
+                MessageBox.Show("Du musst mindestens ein Fach auswählen, welches du unterrichten möchtest", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                Mentor mentor = new Mentor(username, email, password, subjects, "1", (grade.SelectedIndex + 1).ToString());
+                UserManagement.mentors.Add(mentor);
+                UserManagement.AddMentorToDB(mentor);
 
-            Mentor mentor = new Mentor(username, email, password, subjects, "false", grade.SelectedIndex.ToString());
-            UserManagement.AddMentorToDB(mentor);
-
-            MainWindow m = (MainWindow)Application.Current.MainWindow;
-            m.application.Content = new Students(true);
+                MainWindow m = (MainWindow)Application.Current.MainWindow;
+                m.application.Content = new Students(true);
+            }
         }
     }
 }

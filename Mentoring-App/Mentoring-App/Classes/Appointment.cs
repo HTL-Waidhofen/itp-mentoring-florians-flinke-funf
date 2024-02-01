@@ -10,7 +10,8 @@ namespace Mentoring_App
     {
         public string Booker { get; set; }
         public string Mentor { get; set; }
-        public int Id { get; set; }
+        public int Id;
+        public static int lastID = 0;
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
@@ -18,11 +19,14 @@ namespace Mentoring_App
         public bool IsBooked { get; set; }
         public bool IsApproved { get; set; }
 
+
+        public Appointment() { }
         public Appointment(string booker, string mentor, string id, string startTime, string endTime, string isBooked, string isApproved)
         {
             this.Booker = booker;
             this.Mentor = mentor;
-            this.Id = int.Parse(id);
+            lastID += 1;
+            this.Id = lastID + 1;
             this.StartTime = DateTime.Parse(startTime);
             this.EndTime = DateTime.Parse(endTime);
             if(isBooked == "0")

@@ -49,7 +49,7 @@ namespace Mentoring_App.Pages
                     UserManagement.localEmail = email_input.Text;
                     MainWindow m = (MainWindow)Application.Current.MainWindow;
                     m.Resize();
-                    NavigationService.Navigate(new MentorPage());
+                    NavigationService.Navigate(new Students(true));
                 }
 
             }

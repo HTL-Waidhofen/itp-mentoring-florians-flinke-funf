@@ -51,8 +51,8 @@ namespace Mentoring_App.Pages
         }
         public void Update()
         {
-            currentMentors.ItemsSource = UserManagement.GetApproved();
-            outputMentor.ItemsSource = UserManagement.GetAwaiting();
+            //currentMentors.ItemsSource = UserManagement.GetApproved();
+            //outputMentor.ItemsSource = UserManagement.GetAwaiting();
             outputName.Content = "";
             outputClass.Content = "";
             outputSubjects.Content = "";

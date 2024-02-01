@@ -16,8 +16,9 @@
     <StackPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="mainmenu" Header="Menü">
-                <MenuItem Header="Schüler" />
-                <MenuItem Header="Information" />
+                <MenuItem x:Name="menuItemStudent" Header="Schüler"/>
+                <MenuItem x:Name="menuItemMentor" Header="Mentor"/>
+                <MenuItem Header="Information" Click="Information_Click"  />
                 <Separator />
                 <MenuItem Header="Beenden" Click="Shutdown_Click"  />
             </MenuItem>

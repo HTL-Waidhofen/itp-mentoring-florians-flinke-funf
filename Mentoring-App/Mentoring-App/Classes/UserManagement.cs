@@ -23,13 +23,31 @@ namespace Mentoring_App
                                                             "Informationssysteme", "Systemtechnik-E", "Systemtechnik", "Cloud Computing und industrielle Technologien"};
 
 
-        // read
-        public static List<Student> LoadStudentsFromDB()
+
+        //
+        //CONNECTION STRING
+        //
+
+
+
+        private static string loadConnectionString()
+        {
+            return "DataSource=..\\..\\..\\DB\\MentoringDB.db;Version=3;";
+        }
+
+
+
+        //
+        //LOAD
+        //
+
+
+
+        public static void LoadStudentsFromDB()
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
                 con.Open();
-                List<Student> students = new List<Student>();
                 string stm = "SELECT * FROM students";
 
                 using (var cmd = new SQLiteCommand(stm, con))
@@ -41,13 +59,12 @@ namespace Mentoring_App
                             Student st = new Student(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2));
                             students.Add(st);
                         }
-                        return students;
                     }
                 }
             }
         }
 
-        public static List<Mentor> LoadMentorsFromDB()
+        public static void LoadMentorsFromDB()
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -61,7 +78,7 @@ namespace Mentoring_App
                     {
                         while (rdr.Read())
                         {
-                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetBoolean(4).ToString(), rdr.GetInt32(5).ToString());
+                            Mentor mentor = new Mentor(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(5).ToString(), rdr.GetInt32(5).ToString());
 
                             if (!mentors.Any(m => m.Email == mentor.Email))
                             {
@@ -69,13 +86,12 @@ namespace Mentoring_App
                                 cnt++;
                             }
                         }
-                        return mentors;
                     }
                 }
             }
         }
 
-        public static List<Appointment> LoadAppoinmentsFromDB()
+        public static void LoadAppoinmentsFromDB()
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
             {
@@ -95,38 +111,19 @@ namespace Mentoring_App
                                 appointments.Add(appointment);
                             }
                         }
-                        return appointments;
                     }
                 }
             }
         }
 
-        public static void FillStudentMentorAppointments()
-        {
-            foreach (Student student in students)
-            {
-                foreach (Appointment appointment in appointments)
-                {
-                    if (student.Email == appointment.Booker && !student.bookings.Contains(appointment))
-                    {
-                        student.bookings.Add(appointment);
-                    }
-                }
-            }
 
-            foreach (Mentor mentor in mentors)
-            {
-                foreach (Appointment appointment in appointments)
-                {
-                    if (mentor.Email == appointment.Mentor && !mentor.appointments.Contains(appointment))
-                    {
-                        mentor.appointments.Add(appointment);
-                    }
-                }
-            }
-        }
 
-        // create
+        //
+        //ADD
+        //
+
+
+
         public static void AddStudentToDB(Student student)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
@@ -143,6 +140,7 @@ namespace Mentoring_App
                 }
             }
         }
+
         public static void AddMentorToDB(Mentor mentor)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
@@ -162,6 +160,7 @@ namespace Mentoring_App
                 }
             }
         }
+
         public static void AddAppointmentToDB(Appointment appointment)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
@@ -183,7 +182,14 @@ namespace Mentoring_App
             }
         }
 
-        // delete
+
+
+        //
+        //DELETE
+        //
+
+
+
         public static void DeleteStudent(Student student)
         {
             using (var con = new SQLiteConnection(loadConnectionString()))
@@ -232,7 +238,13 @@ namespace Mentoring_App
             }
         }
 
-        // Update
+
+
+        //
+        //UPDATE
+        //
+
+
 
         public static void UpdateStudent(Student student)
         {
@@ -293,48 +305,14 @@ namespace Mentoring_App
                 }
             }
         }
-        public static List<Appointment> GetMentorAppointments()
-        {
-            LoadStudentsFromDB();
-            LoadMentorsFromDB();
-            appointments = LoadAppoinmentsFromDB();
-            List<Appointment> MentorAppointments = new List<Appointment>();
-            foreach (var appointment in appointments)
-            {
-                if (appointment.Mentor == localEmail)
-                {
-                    MentorAppointments.Add(appointment);
-                }
-            }
-            return MentorAppointments;
-        }
-
-        public static List<Appointment> GetAppointmentsFromSubject(string subject)
-        {
-            List<Appointment> subjectAppointments = new List<Appointment>();
-            LoadAppoinmentsFromDB();
-
-            foreach (Appointment appointment in appointments)
-            {
-                // Überprüfen, ob das Fach des Mentors mit dem gesuchten Fach übereinstimmt
-                Mentor mentor = mentors.FirstOrDefault(m => m.Email == appointment.Mentor && m.Subjects.Contains(subject));
-
-                // Hinzufügen, wenn Mentor gefunden und der Termin noch nicht in der Liste ist
-                if (mentor != null && !subjectAppointments.Any(appo => appo.Id == appointment.Id))
-                {
-                    subjectAppointments.Add(appointment);
-                }
-            }
-
-            // Sortieren Sie die Termine nach der Startzeit
-            subjectAppointments = subjectAppointments.OrderBy(appo => appo.StartTime).ToList();
-
-            return subjectAppointments;
-        }
 
 
 
-        // test valid email
+        //
+        //EMAIL & PASSWORD VALID
+        //
+
+
 
         public static bool IsEmailValid(string email)
         {
@@ -359,22 +337,76 @@ namespace Mentoring_App
             else return false;
         }
 
-        // Register
 
-        public static void StudentRegister(string name, string email, string password)
+
+        //
+        //OTHERS
+        //
+
+
+
+        public static List<Appointment> LoadAppointmentsViaSubject(string selectedSubject)
         {
-            Student s = new Student(name, email, password);
-            students.Add(s);
-            AddStudentToDB(s);
+            List<Appointment> possibleAppointments = new List<Appointment> ();
+
+            List<Mentor> possibleMentors = new List<Mentor>();
+
+            foreach(Mentor m in mentors)
+            {
+                if(m.Subjects.Contains(selectedSubject))
+                    possibleMentors.Add(m);
+            }
+
+            foreach(Appointment a in appointments)
+            {
+                foreach(Mentor m in possibleMentors)
+                {
+                    if(m.Email == a.Mentor && a.IsBooked == false)
+                    {
+                        possibleAppointments.Add(a);
+                    }
+                }
+            }
+
+            return possibleAppointments;
         }
-        private static string loadConnectionString()
+
+        public static void bookAppointment(int appointmentID)
         {
-            return "DataSource=..\\..\\..\\bin\\Debug\\net6.0-windows\\MentoringDB.db;Version=3;";
+            Appointment bookedAppointment = new Appointment();
+            foreach(Appointment a in appointments)
+            {
+                if(a.Id == appointmentID)
+                {
+                    bookedAppointment = a;
+                    bookedAppointment.IsBooked = true;
+                    bookedAppointment.Booker = localEmail;
+                }
+            }
+            UpdateAppointment(bookedAppointment);
         }
+
+        public static string GetUserStatus(string email)
+        {
+            LoadStudentsFromDB();
+            LoadMentorsFromDB();
+            foreach (Mentor m in mentors)
+            {
+                if (m.Email == email)
+                    return "mentor";
+            }
+            foreach (Student s in students)
+            {
+                if (s.Email == email)
+                    return "student";
+            }
+            return "not available";
+        }
+
         public static bool confirmLogin(string usermail, string password)
         {
-            students = LoadStudentsFromDB();
-            mentors = LoadMentorsFromDB();
+            LoadStudentsFromDB();
+            LoadMentorsFromDB();
 
             foreach (var s in students)
             {
@@ -392,161 +424,6 @@ namespace Mentoring_App
             }
             return false;
         }
-        public static string GetUserStatus(string email)
-        {
-            students = LoadStudentsFromDB();
-            mentors = LoadMentorsFromDB();
-            foreach (Mentor m in mentors)
-            {
-                if (m.Email == email)
-                    return "mentor";
-            }
-            foreach (Student s in students)
-            {
-                if (s.Email == email)
-                    return "student";
-            }
-            return "not available";
-        }
-        public static List<Mentor> GetApproved()
-        {
-            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
-            List<Mentor> approvedMentors = new List<Mentor>();
-            foreach (Mentor m in myMentors)
-            {
-                if (m.IsApproved)
-                {
-                    approvedMentors.Add(m);
-                }
-            }
-            return approvedMentors;
-        }
-        public static List<Mentor> GetAwaiting()
-        {
-            List<Mentor> myMentors = UserManagement.LoadMentorsFromDB();
-            List<Mentor> awaitingMentors = new List<Mentor>();
-            foreach (Mentor m in myMentors)
-            {
-                if (m.IsApproved == false)
-                {
-                    awaitingMentors.Add(m);
-                }
-            }
-            return awaitingMentors;
-        }
 
-        // methods for students page
-
-        public static Student GetLocalStudent(string localEmail)
-        {
-            foreach (Student student in students)
-            {
-                if (student.Email == localEmail)
-                {
-                    return student;
-                }
-            }
-
-            return null;
-        }
-
-        public static void UpdateMyAppointmentsStudent(ListBox myAppointmentsListBox)
-        {
-            //METHODE
-            LoadStudentsFromDB();
-            LoadMentorsFromDB();
-            LoadAppoinmentsFromDB();
-
-            myAppointmentsListBox.Items.Clear();
-
-            foreach (Appointment appo in GetLocalStudent(localEmail).bookings)
-            {
-                Mentor mentor = mentors.FirstOrDefault(m => m.Email == appo.Mentor);
-
-                if (mentor != null)
-                {
-                    myAppointmentsListBox.Items.Add($"Mentor: {mentor.Name}, Von: {appo.StartTime} - {appo.EndTime.ToString("HH:mm")}, Angenommen: {(appo.IsApproved ? "Ja" : "Nein")}, ID: {appo.Id}");
-                }
-            }
-        }
-
-        public static void bookAppointmentStudent(ListBox appointmentsListBox, ListBox myAppointmentListBox)
-        {
-            if (appointmentsListBox.SelectedItem == null)
-            {
-                MessageBox.Show("Kein Termin ausgewählt", "Appointment-Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (GetLocalStudent(localEmail) == null)
-            {
-                MessageBox.Show("User nicht gefunden", "User-Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            // Appointment Objekt bekommen anhand von ID 
-            string tempSelectedItem = appointmentsListBox.SelectedItem.ToString();
-
-            int idStartIndex = tempSelectedItem.IndexOf("ID: ") + 4;
-
-            if (idStartIndex >= 0 && idStartIndex < tempSelectedItem.Length)
-            {
-                string IDfromSelected = tempSelectedItem.Substring(idStartIndex, Math.Min(10, tempSelectedItem.Length - idStartIndex));
-
-                // Entferne mögliche Leerzeichen
-                IDfromSelected = IDfromSelected.Trim();
-
-                if (int.TryParse(IDfromSelected, out int parsedId))
-                {
-                    // Überprüfen Sie, ob die ID im gültigen Bereich liegt
-                    if (parsedId > 0 && parsedId <= appointments.Count)
-                    {
-                        // Den ausgewählten Termin finden
-                        Appointment selectedAppointment = appointments.FirstOrDefault(appo => appo.Id == parsedId);
-
-                        if (selectedAppointment != null)
-                        {
-                            // Überprüfen, ob der Termin bereits gebucht ist
-                            if (!selectedAppointment.IsBooked)
-                            {
-                                // Den Termin buchen
-                                selectedAppointment.IsBooked = true;
-                                selectedAppointment.Booker = GetLocalStudent(localEmail).Email;
-                                UpdateAppointment(selectedAppointment);
-
-                                // Weitere Aktualisierungen und Laden der Daten
-                                LoadStudentsFromDB();
-                                LoadMentorsFromDB();
-                                LoadAppoinmentsFromDB();
-                                FillStudentMentorAppointments();
-
-                                // ListBox aktualisieren
-                                appointmentsListBox.Items.Clear();
-                                UpdateMyAppointmentsStudent(myAppointmentListBox);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Der ausgewählte Termin ist bereits gebucht.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Termin nicht gefunden.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ungültiges ID-Format", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Ungültiges ID-Format", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Ungültiges Auswahlformat", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
     }
 }

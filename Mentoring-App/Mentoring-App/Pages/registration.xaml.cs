@@ -29,23 +29,34 @@ namespace Mentoring_App.Pages
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
             MainWindow m = (MainWindow)Application.Current.MainWindow;
-            if (UserManagement.IsEmailValid(Email_TextBox.Text) == true && UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
+            if (UserManagement.IsEmailValid(Email_TextBox.Text) == true)
             {
-                UserManagement.localEmail = Email_TextBox.Text;
-                if (StudentOrMentor.SelectedIndex == 0)
+                if (UserManagement.IsPasswordValid(Password_TextBox.Password, PasswordConfirm_TextBox.Password) == true)
                 {
-                    m.application.Content = new Students();
-                    UserManagement.StudentRegister(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                    UserManagement.localEmail = Email_TextBox.Text;
+
+                    if (StudentOrMentor.SelectedIndex == 0)
+                    {
+                        Student s = new Student(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                        UserManagement.students.Add(s);
+                        UserManagement.AddStudentToDB(s);
+
+                        m.application.Content = new Students();
+                    }
+                    else
+                    {
+                        mentorreg.GetUser(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
+                        m.application.Content = new mentorreg();
+                    }
                 }
                 else
                 {
-                    mentorreg.GetUser(Name_TextBox.Text, Email_TextBox.Text, Password_TextBox.Password);
-                    m.application.Content = new mentorreg();
+                    MessageBox.Show("Password is not valid!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Fehler","Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Email is not valid!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

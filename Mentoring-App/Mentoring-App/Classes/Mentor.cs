@@ -17,6 +17,8 @@ namespace Mentoring_App
 
         public List<Appointment> appointments = new List<Appointment>();
 
+        public Mentor() { }
+
         public Mentor(string name, string email, string password, string subjects, string isApproved, string grade) 
         {
             this.Name = name;

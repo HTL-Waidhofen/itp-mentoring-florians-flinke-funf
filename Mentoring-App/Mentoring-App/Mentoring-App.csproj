@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\BlueOcean.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Pages\" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
   </ItemGroup>
@@ -24,10 +20,6 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Fonts\BlueOcean.ttf" />
   </ItemGroup>
 
 </Project>
